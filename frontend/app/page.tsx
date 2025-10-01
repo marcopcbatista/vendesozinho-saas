@@ -1,12 +1,32 @@
-﻿export default function Home() {
+﻿import Link from 'next/link';
+
+export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-50">
-      <h1 className="text-4xl font-bold mb-4 text-gray-900">
-        Bem-vindo ao VendeSozinho SaaS
-      </h1>
-      <p className="text-lg text-gray-600 max-w-2xl text-center">
-        Gerador de textos de vendas com Inteligência Artificial
-      </p>
-    </main>
-  )
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            vendeSozinho
+          </h1>
+          <p className="text-xl text-gray-600 mb-8">
+            Gere textos de vendas com IA
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Link
+              href="/login"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Começar Agora
+            </Link>
+            <Link
+              href="/dashboard"
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold border-2 border-blue-600 hover:bg-blue-50 transition"
+            >
+              Ver Dashboard
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
