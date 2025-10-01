@@ -1,0 +1,263 @@
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { authService } from '../services/api';
+import toast from 'react-hot-toast';
+
+// Estado inicial
+const initialState = {
+  user: null,
+  token: null,
+  isAuthenticated: false,
+  isLoading: true,
+  error: null,
+};
+
+// Actions
+const authActions = {
+  SET_LOADING: 'SET_LOADING',
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGOUT: 'LOGOUT',
+  SET_ERROR: 'SET_ERROR',
+  UPDATE_USER: 'UPDATE_USER',
+  CLEAR_ERROR: 'CLEAR_ERROR',
+};
+
+// Reducer
+const authReducer = (state, action) => {
+  switch (action.type) {
+    case authActions.SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+
+    case authActions.LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.user,
+        token: action.payload.token,
+        isAuthenticated: true,
+        isLoading: false,
+        error: null,
+      };
+
+    case authActions.LOGOUT:
+      return {
+        ...initialState,
+        isLoading: false,
+      };
+
+    case authActions.SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+
+    case authActions.UPDATE_USER:
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
+
+    case authActions.CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// Context
+const AuthContext = createContext();
+
+// Provider
+export const AuthProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, initialState);
+
+  // Verificar token ao inicializar
+  useEffect(() => {
+    const initializeAuth = async () => {
+      const token = Cookies.get('vendesozinho_token');
+      
+      if (token) {
+        try {
+          const response = await authService.verifyToken(token);
+          
+          dispatch({
+            type: authActions.LOGIN_SUCCESS,
+            payload: {
+              user: response.data.user,
+              token: token,
+            },
+          });
+        } catch (error) {
+          console.error('Token inválido:', error);
+          Cookies.remove('vendesozinho_token');
+          dispatch({ type: authActions.SET_LOADING, payload: false });
+        }
+      } else {
+        dispatch({ type: authActions.SET_LOADING, payload: false });
+      }
+    };
+
+    initializeAuth();
+  }, []);
+
+  // Login com Google
+  const loginWithGoogle = async (googleToken) => {
+    try {
+      dispatch({ type: authActions.SET_LOADING, payload: true });
+      
+      const response = await authService.loginWithGoogle(googleToken);
+      const { user, token } = response.data;
+
+      // Salvar token no cookie
+      Cookies.set('vendesozinho_token', token, {
+        expires: 7, // 7 dias
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
+
+      dispatch({
+        type: authActions.LOGIN_SUCCESS,
+        payload: { user, token },
+      });
+
+      toast.success(`Bem-vindo, ${user.name}! 🎉`);
+      return { success: true };
+      
+    } catch (error) {
+      const message = error.response?.data?.error || 'Erro ao fazer login';
+      
+      dispatch({
+        type: authActions.SET_ERROR,
+        payload: message,
+      });
+
+      toast.error(message);
+      return { success: false, error: message };
+    }
+  };
+
+  // Logout
+  const logout = async () => {
+    try {
+      if (state.token) {
+        await authService.logout();
+      }
+    } catch (error) {
+      console.error('Erro no logout:', error);
+    } finally {
+      // Remover token e limpar estado
+      Cookies.remove('vendesozinho_token');
+      dispatch({ type: authActions.LOGOUT });
+      toast.success('Logout realizado com sucesso');
+    }
+  };
+
+  // Atualizar dados do usuário
+  const updateUser = (userData) => {
+    dispatch({
+      type: authActions.UPDATE_USER,
+      payload: userData,
+    });
+  };
+
+  // Refresh token
+  const refreshToken = async () => {
+    try {
+      const response = await authService.refreshToken();
+      const { user, token } = response.data;
+
+      Cookies.set('vendesozinho_token', token, {
+        expires: 7,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
+
+      dispatch({
+        type: authActions.LOGIN_SUCCESS,
+        payload: { user, token },
+      });
+
+      return { success: true };
+    } catch (error) {
+      console.error('Erro ao renovar token:', error);
+      logout();
+      return { success: false };
+    }
+  };
+
+  // Verificar se usuário tem permissão
+  const hasPermission = (resource) => {
+    if (!state.user || !state.isAuthenticated) return false;
+    
+    const permissions = {
+      trial: ['basic_generator', 'basic_templates'],
+      active: ['basic_generator', 'basic_templates', 'advanced_features', 'history'],
+      premium: ['basic_generator', 'basic_templates', 'advanced_features', 'history', 'api_access'],
+    };
+
+    const userPermissions = permissions[state.user.subscription_status] || [];
+    return userPermissions.includes(resource);
+  };
+
+  // Verificar se está no período de trial
+  const isTrialActive = () => {
+    if (!state.user?.trial_ends_at) return false;
+    return new Date(state.user.trial_ends_at) > new Date();
+  };
+
+  // Obter dias restantes do trial
+  const getTrialDaysLeft = () => {
+    if (!state.user?.trial_ends_at) return 0;
+    const trialEnd = new Date(state.user.trial_ends_at);
+    const now = new Date();
+    const diffTime = trialEnd - now;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.max(0, diffDays);
+  };
+
+  // Limpar erro
+  const clearError = () => {
+    dispatch({ type: authActions.CLEAR_ERROR });
+  };
+
+  const value = {
+    // Estado
+    ...state,
+    
+    // Funções
+    loginWithGoogle,
+    logout,
+    updateUser,
+    refreshToken,
+    hasPermission,
+    isTrialActive,
+    getTrialDaysLeft,
+    clearError,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// Hook para usar o contexto
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  
+  if (!context) {
+    throw new Error('useAuth deve ser usado dentro de AuthProvider');
+  }
+  
+  return context;
+};
+
+export default AuthContext;
