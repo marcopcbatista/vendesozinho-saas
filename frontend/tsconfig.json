@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+  "compilerOptions": {`r`n    "baseUrl": ".",`r`n    "paths": { "@/*": ["./*"] },
     "target": "esnext",
     "lib": [
       "dom",
