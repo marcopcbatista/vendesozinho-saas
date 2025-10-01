@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
     setErrors({})
     
     try {
-      await resetPassword(formData.email.toLowerCase().trim())
+      await resetPassword({ email: formData.email.toLowerCase().trim() )
       setEmailSent(true)
     } catch (error: any) {
       if (error.message?.includes('User not found')) {
