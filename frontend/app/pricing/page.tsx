@@ -1,19 +1,7 @@
 ﻿const plans = [
-  {
-    name: "Básico",
-    description: "Plano ideal para quem está começando.",
-    price: 49
-  },
-  {
-    name: "Profissional",
-    description: "Para negócios em crescimento que precisam de mais recursos.",
-    price: 149
-  },
-  {
-    name: "Enterprise",
-    description: "Plano completo para empresas maiores e demandas avançadas.",
-    price: 499
-  }
+  { name: 'Básico', description: 'Plano para iniciantes', price: 49 },
+  { name: 'Profissional', description: 'Para negócios em crescimento', price: 149 },
+  { name: 'Enterprise', description: 'Plano completo', price: 499 }
 ]
 
 export default function PricingPage() {
@@ -22,14 +10,14 @@ export default function PricingPage() {
       <h2 className="text-4xl font-bold text-center mb-12">Nossos Planos</h2>
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {plans.map((plan) => (
-          <div key={plan.name} className="border rounded-2xl p-6 shadow hover:shadow-lg transition">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+          <div key={plan.name} className="border rounded-2xl p-6 shadow">
+            <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
             <p className="text-gray-600 mb-6">{plan.description}</p>
             <div className="mb-6">
-              <span className="text-5xl font-bold text-gray-900">R${plan.price}</span>
+              <span className="text-5xl font-bold">R\</span>
               <span className="text-gray-500">/mês</span>
             </div>
-            <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition">
+            <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold">
               Assinar agora
             </button>
           </div>

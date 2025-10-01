@@ -5,7 +5,6 @@ export async function GET() {
   try {
     const supabase = await getSupabaseServer()
     const { data, error } = await supabase.from('leads').select('*')
-    
     if (error) throw error
     return NextResponse.json({ data })
   } catch (error) {
@@ -17,12 +16,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
     const supabase = await getSupabaseServer()
-    
-    const { data, error } = await supabase
-      .from('leads')
-      .insert([body])
-      .select()
-    
+    const { data, error } = await supabase.from('leads').insert([body]).select()
     if (error) throw error
     return NextResponse.json({ data }, { status: 201 })
   } catch (error) {
