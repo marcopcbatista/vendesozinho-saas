@@ -14,7 +14,7 @@ export default function PricingPage() {
             <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
             <p className="text-gray-600 mb-6">{plan.description}</p>
             <div className="mb-6">
-              <span className="text-5xl font-bold">R\</span>
+              <span className="text-5xl font-bold">{'R$'}{plan.price}</span>
               <span className="text-gray-500">/mês</span>
             </div>
             <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-semibold">
