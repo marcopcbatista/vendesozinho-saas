@@ -1,11 +1,12 @@
-{
-  "name": "frontend",
-  "version": "0.1.0",
+﻿{
+  "name": "vendesozinho-frontend",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
