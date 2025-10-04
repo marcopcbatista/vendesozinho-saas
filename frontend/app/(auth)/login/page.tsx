@@ -1,131 +1,41 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { Card } from '@/components/ui/Card'
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { login as loginUser } from "@/services/auth"
+
+const loginSchema = z.object({
+  email: z.string().email("E-mail inv�lido"),
+  password: z.string().min(6, "Senha m�nima de 6 caracteres")
+})
+
+type LoginFormData = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [msg, setMsg] = useState<string | null>(null)
+  const { register, handleSubmit, formState: { errors, isSubmitting } } =
+    useForm<LoginFormData>({ resolver: zodResolver(loginSchema) })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
-
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        // Salvar token e dados do usuário
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', JSON.stringify(data.user))
-        
-        // Redirecionar para dashboard
-        router.push('/app/dashboard')
-      } else {
-        setError(data.error || 'Erro ao fazer login')
-      }
-    } catch (err) {
-      setError('Erro ao conectar com o servidor')
-      console.error('Login error:', err)
-    } finally {
-      setLoading(false)
-    }
+  const onSubmit = async (data: LoginFormData) => {
+    const res = await loginUser(data.email, data.password)
+    setMsg(res.message)
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <Card className="w-full max-w-md p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">vendeSozinho</h1>
-          <p className="text-gray-600 mt-2">Entre na sua conta</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              Senha
-            </label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span className="ml-2 text-sm text-gray-600">Lembrar-me</span>
-            </label>
-
-            <Link 
-              href="/forgot-password" 
-              className="text-sm text-blue-600 hover:text-blue-700"
-            >
-              Esqueceu a senha?
-            </Link>
-          </div>
-
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading}
-          >
-            {loading ? 'Entrando...' : 'Entrar'}
-          </Button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Não tem uma conta?{' '}
-            <Link href="/register" className="text-blue-600 hover:text-blue-700 font-medium">
-              Cadastre-se
-            </Link>
-          </p>
-        </div>
-      </Card>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-6 rounded shadow-md w-full max-w-md">
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <input className="w-full border p-2 mb-2" placeholder="Email" {...register("email")} />
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        <input type="password" className="w-full border p-2 mb-2" placeholder="Senha" {...register("password")} />
+        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+        <button disabled={isSubmitting} className="w-full bg-green-600 text-white p-2 rounded">
+          {isSubmitting ? "Entrando..." : "Login"}
+        </button>
+        {msg && <p className="mt-2">{msg}</p>}
+      </form>
     </div>
   )
 }

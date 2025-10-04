@@ -1,111 +1,127 @@
-"use client";
+"use client"
 
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { register as registerUser } from "@/services/auth";
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { register as registerUser, RegisterData } from "@/services/auth"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
-type RegisterFormData = {
-  name: string;
-  email: string;
-  phone?: string;
-  password: string;
-  passwordConfirmation: string;
-  acceptTerms: boolean;
-};
+// ✅ Esquema de validação com Zod
+const registerSchema = z.object({
+  name: z.string().min(3, "O nome precisa ter pelo menos 3 caracteres"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().optional(),
+  password: z.string().min(6, "A senha precisa ter pelo menos 6 caracteres"),
+  passwordConfirmation: z.string().min(6, "Confirme sua senha"),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: "Você deve aceitar os termos de uso" }),
+  }),
+}).refine((data) => data.password === data.passwordConfirmation, {
+  path: ["passwordConfirmation"],
+  message: "As senhas não coincidem",
+})
+
+type FormData = z.infer<typeof registerSchema>
 
 export default function RegisterPage() {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterFormData>();
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(registerSchema),
+  })
 
-  const onSubmit = async (formData: RegisterFormData) => {
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const onSubmit = async (data: FormData) => {
     try {
-      await registerUser({
-        name: formData.name.trim(),
-        email: formData.email.toLowerCase().trim(),
-        phone: formData.phone || undefined,
-        password: formData.password,
-        passwordConfirmation: formData.passwordConfirmation,
-        acceptTerms: formData.acceptTerms,
-      });
+      setLoading(true)
 
-      router.push("/login");
-    } catch (error) {
-      console.error("Erro no registro:", error);
-      alert("Falha ao registrar. Tente novamente.");
+      const payload: RegisterData = {
+        name: data.name.trim(),
+        email: data.email.toLowerCase().trim(),
+        phone: data.phone || undefined,
+        password: data.password,
+        passwordConfirmation: data.passwordConfirmation,
+        acceptTerms: data.acceptTerms,
+      }
+
+      await registerUser(payload)
+      toast.success("Conta criada com sucesso!")
+      router.push("/login")
+    } catch (error: any) {
+      toast.error(error.message || "Erro ao registrar")
+    } finally {
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Criar Conta</h1>
+    <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6">
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
+          Criar Conta
+        </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Nome */}
           <div>
-            <label className="block text-sm font-medium mb-1">Nome</label>
             <input
               type="text"
-              {...register("name", { required: "Nome é obrigatório" })}
-              className="w-full border rounded p-2"
+              placeholder="Nome completo"
+              {...register("name")}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
             />
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name.message}</p>
             )}
           </div>
 
-          {/* Email */}
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
-              {...register("email", { required: "Email é obrigatório" })}
-              className="w-full border rounded p-2"
+              placeholder="Email"
+              {...register("email")}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
           </div>
 
-          {/* Telefone */}
           <div>
-            <label className="block text-sm font-medium mb-1">Telefone</label>
             <input
-              type="text"
+              type="tel"
+              placeholder="Telefone (opcional)"
               {...register("phone")}
-              className="w-full border rounded p-2"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
             />
+            {errors.phone && (
+              <p className="text-red-500 text-sm">{errors.phone.message}</p>
+            )}
           </div>
 
-          {/* Senha */}
           <div>
-            <label className="block text-sm font-medium mb-1">Senha</label>
             <input
               type="password"
-              {...register("password", { required: "Senha é obrigatória" })}
-              className="w-full border rounded p-2"
+              placeholder="Senha"
+              {...register("password")}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
             />
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
           </div>
 
-          {/* Confirmar Senha */}
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Confirmar Senha
-            </label>
             <input
               type="password"
-              {...register("passwordConfirmation", {
-                required: "Confirme sua senha",
-              })}
-              className="w-full border rounded p-2"
+              placeholder="Confirmar senha"
+              {...register("passwordConfirmation")}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
             />
             {errors.passwordConfirmation && (
               <p className="text-red-500 text-sm">
@@ -114,33 +130,30 @@ export default function RegisterPage() {
             )}
           </div>
 
-          {/* Aceitar Termos */}
           <div className="flex items-center">
             <input
               type="checkbox"
-              {...register("acceptTerms", {
-                required: "Você deve aceitar os termos",
-              })}
+              id="terms"
+              {...register("acceptTerms")}
               className="mr-2"
             />
-            <span className="text-sm">Aceito os termos de uso</span>
+            <label htmlFor="terms" className="text-sm text-gray-700">
+              Aceito os <a href="/termos" className="text-purple-600 underline">termos de uso</a>
+            </label>
           </div>
           {errors.acceptTerms && (
-            <p className="text-red-500 text-sm">
-              {errors.acceptTerms.message?.toString()}
-            </p>
+            <p className="text-red-500 text-sm">{errors.acceptTerms.message}</p>
           )}
 
-          {/* Botão */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+            disabled={isSubmitting || loading}
+            className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 disabled:opacity-50"
           >
-            Registrar
+            {loading ? "Criando conta..." : "Cadastrar"}
           </button>
         </form>
       </div>
-    </div>
-  );
+    </main>
+  )
 }
-

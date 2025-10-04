@@ -1,19 +1,19 @@
 ﻿export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-gradient-to-br from-purple-50 to-blue-50">
-      <div className="text-center max-w-4xl">
-        <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-          Bem-vindo ao vendeSozinho
+    <main className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="text-center space-y-6 max-w-4xl">
+        <h1 className="text-6xl font-bold text-gray-900">
+          vendeSozinho
         </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          Plataforma SaaS para automação de vendas no WhatsApp
+        <p className="text-2xl text-gray-600">
+          Gerador de Textos de Vendas com Inteligência Artificial
         </p>
-        <div className="flex gap-4 justify-center">
-          <a href="/pricing" className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-            Ver Planos
+        <div className="flex gap-4 justify-center mt-8">
+          <a href="/generator" className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+            Começar Agora
           </a>
-          <a href="/dashboard" className="px-6 py-3 border-2 border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition">
-            Dashboard
+          <a href="/pricing" className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition">
+            Ver Planos
           </a>
         </div>
       </div>
