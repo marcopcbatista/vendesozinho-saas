@@ -1,4 +1,4 @@
-Ôªø'use client'
+'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
@@ -33,21 +33,21 @@ export default function HomePage() {
       <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl">üì±</span>
+            <span className="text-2xl">??</span>
             <span className="text-xl font-bold text-gray-900 dark:text-white">vendeSozinho</span>
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Recursos</a>
             <a href="#results" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Resultados</a>
-            <Link href="/pricing" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pre√ßos</Link>
+            <Link href="/pricing" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">PreÁos</Link>
             
             <button onClick={toggleTheme} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
-              {theme === 'light' ? 'üåô' : '‚òÄÔ∏è'}
+              {theme === 'light' ? '??' : '??'}
             </button>
             
             <Link href="/generator" className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
-              Come√ßar Teste
+              ComeÁar Teste
             </Link>
           </nav>
         </div>
@@ -59,28 +59,28 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <div className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-full mb-6">
-                <span className="text-2xl">üöÄ</span>
+                <span className="text-2xl">??</span>
                 <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Mais de 5.000 empresas transformadas</span>
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                 Transforme seu WhatsApp em uma{' '}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  m√°quina de vendas
+                  m·quina de vendas
                 </span>{' '}
                 automatizada
               </h1>
 
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-                Atenda centenas de clientes simultaneamente, feche 3x mais vendas e economize milhares com nossa plataforma de automa√ß√£o inteligente.
+                Atenda centenas de clientes simultaneamente, feche 3x mais vendas e economize milhares com nossa plataforma de automaÁ„o inteligente.
               </p>
 
               <div className="grid grid-cols-4 gap-4 mb-8">
                 {[
                   { number: '30s', label: 'Tempo resposta' },
-                  { number: '15x', label: 'ROI m√©dio' },
+                  { number: '15x', label: 'ROI mÈdio' },
                   { number: '24/7', label: 'Atendimento' },
-                  { number: '300%', label: 'Convers√µes' }
+                  { number: '300%', label: 'Conversıes' }
                 ].map((stat) => (
                   <div key={stat.label} className="text-center">
                     <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stat.number}</div>
@@ -91,10 +91,10 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/generator" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition text-center">
-                  Come√ßar Teste Gr√°tis ‚Üí
+                  ComeÁar Teste Gr·tis ?
                 </Link>
                 <Link href="/pricing" className="px-8 py-4 border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition text-center">
-                  Ver Demonstra√ß√£o
+                  Ver DemonstraÁ„o
                 </Link>
               </div>
             </div>
@@ -106,15 +106,15 @@ export default function HomePage() {
                   <h3 className="font-bold text-gray-900 dark:text-white">vendeSozinho Dashboard</h3>
                   <div className="flex items-center space-x-2">
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Online ‚Ä¢ 247 leads hoje</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Online ï 247 leads hoje</span>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   {[
-                    { label: 'Convers√µes hoje', value: '89', change: '+23%', positive: true },
+                    { label: 'Conversıes hoje', value: '89', change: '+23%', positive: true },
                     { label: 'Tempo resposta', value: '24s', change: '-67%', positive: true },
-                    { label: 'Taxa convers√£o', value: '34%', change: '+156%', positive: true }
+                    { label: 'Taxa convers„o', value: '34%', change: '+156%', positive: true }
                   ].map((metric) => (
                     <div key={metric.label} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div>
@@ -138,19 +138,19 @@ export default function HomePage() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Voc√™ reconhece estes problemas?
+              VocÍ reconhece estes problemas?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Milhares de empresas perdem vendas todos os dias por n√£o conseguirem atender adequadamente
+              Milhares de empresas perdem vendas todos os dias por n„o conseguirem atender adequadamente
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: 'üì±', title: 'Leads Perdidos', desc: 'Clientes desistem porque demoram 4-8h para resposta', impact: '-60% convers√µes' },
-              { icon: 'üíº', title: 'Equipe Sobrecarregada', desc: '80% do tempo em perguntas repetitivas', impact: 'R$ 8k/m√™s/vendedor' },
-              { icon: 'üåô', title: 'Vendas Perdidas', desc: '45% dos clientes mandam mensagem fora do hor√°rio', impact: '-45% oportunidades' },
-              { icon: 'üìâ', title: 'Falta de Controle', desc: 'Sem visibilidade do funil ou m√©tricas', impact: 'Decis√µes cegas' }
+              { icon: '??', title: 'Leads Perdidos', desc: 'Clientes desistem porque demoram 4-8h para resposta', impact: '-60% conversıes' },
+              { icon: '??', title: 'Equipe Sobrecarregada', desc: '80% do tempo em perguntas repetitivas', impact: 'R$ 8k/mÍs/vendedor' },
+              { icon: '??', title: 'Vendas Perdidas', desc: '45% dos clientes mandam mensagem fora do hor·rio', impact: '-45% oportunidades' },
+              { icon: '??', title: 'Falta de Controle', desc: 'Sem visibilidade do funil ou mÈtricas', impact: 'Decisıes cegas' }
             ].map((problem) => (
               <div key={problem.title} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition">
                 <div className="text-4xl mb-4">{problem.icon}</div>
@@ -174,28 +174,28 @@ export default function HomePage() {
               Como Nossa Plataforma Resolve
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Tecnologia avan√ßada que transforma seu WhatsApp profissionalmente
+              Tecnologia avanÁada que transforma seu WhatsApp profissionalmente
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: 'üöÄ',
-                title: 'Automa√ß√£o Inteligente',
-                features: ['Respostas 24/7', 'Fluxos com IA', 'Qualifica√ß√£o autom√°tica', 'Agendamentos'],
+                icon: '??',
+                title: 'AutomaÁ„o Inteligente',
+                features: ['Respostas 24/7', 'Fluxos com IA', 'QualificaÁ„o autom·tica', 'Agendamentos'],
                 result: '80% menos tempo repetitivo'
               },
               {
-                icon: 'üíº',
-                title: 'Profissionaliza√ß√£o',
-                features: ['M√∫ltiplos atendentes', 'Templates otimizados', 'Hist√≥rico unificado', 'Relat√≥rios detalhados'],
+                icon: '??',
+                title: 'ProfissionalizaÁ„o',
+                features: ['M˙ltiplos atendentes', 'Templates otimizados', 'HistÛrico unificado', 'RelatÛrios detalhados'],
                 result: 'Equipe 3x mais produtiva'
               },
               {
-                icon: 'üìä',
-                title: 'Gest√£o Completa',
-                features: ['Dashboard real-time', 'Funil visual', 'WhatsApp API', 'Integra√ß√µes CRM'],
+                icon: '??',
+                title: 'Gest„o Completa',
+                features: ['Dashboard real-time', 'Funil visual', 'WhatsApp API', 'IntegraÁıes CRM'],
                 result: 'Controle total baseado em dados'
               }
             ].map((feature) => (
@@ -205,14 +205,14 @@ export default function HomePage() {
                 <ul className="space-y-2 mb-6">
                   {feature.features.map((item) => (
                     <li key={item} className="flex items-center text-gray-600 dark:text-gray-300">
-                      <span className="mr-2">‚úì</span>
+                      <span className="mr-2">?</span>
                       {item}
                     </li>
                   ))}
                 </ul>
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                    üìä Resultado: {feature.result}
+                    ?? Resultado: {feature.result}
                   </span>
                 </div>
               </div>
@@ -235,10 +235,10 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { stat: '300%', label: 'Aumento convers√£o', detail: 'De 8% para 25%' },
-              { stat: '80%', label: 'Redu√ß√£o tempo', detail: '4h para 30s' },
-              { stat: '250%', label: 'Crescimento vendas', detail: '+R$ 85k/m√™s' },
-              { stat: '15x', label: 'ROI m√©dio', detail: 'Retorno em 30 dias' }
+              { stat: '300%', label: 'Aumento convers„o', detail: 'De 8% para 25%' },
+              { stat: '80%', label: 'ReduÁ„o tempo', detail: '4h para 30s' },
+              { stat: '250%', label: 'Crescimento vendas', detail: '+R$ 85k/mÍs' },
+              { stat: '15x', label: 'ROI mÈdio', detail: 'Retorno em 30 dias' }
             ].map((item) => (
               <div key={item.label} className="text-center">
                 <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">{item.stat}</div>
@@ -254,20 +254,20 @@ export default function HomePage() {
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-4xl">
           <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-12 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">üî• Oferta Especial - Primeiros 100 Clientes</h2>
+            <h2 className="text-4xl font-bold mb-4">?? Oferta Especial - Primeiros 100 Clientes</h2>
             <div className="text-6xl font-bold mb-4">50% OFF</div>
             <p className="text-2xl mb-6">nos primeiros 3 meses</p>
             <div className="flex justify-center gap-4 mb-8">
-              <span className="text-3xl line-through opacity-75">R$ 297/m√™s</span>
-              <span className="text-4xl font-bold">R$ 148/m√™s</span>
+              <span className="text-3xl line-through opacity-75">R$ 297/mÍs</span>
+              <span className="text-4xl font-bold">R$ 148/mÍs</span>
             </div>
             <div className="bg-white/20 backdrop-blur rounded-lg p-6 mb-6">
-              <h3 className="text-2xl font-bold mb-4">B√¥nus Inclusos (R$ 5.500)</h3>
+              <h3 className="text-2xl font-bold mb-4">BÙnus Inclusos (R$ 5.500)</h3>
               <ul className="space-y-2 text-left max-w-md mx-auto">
-                <li>‚úÖ Configura√ß√£o completa (R$ 1.500)</li>
-                <li>‚úÖ Treinamento personalizado (R$ 2.000)</li>
-                <li>‚úÖ Suporte premium 60 dias (R$ 1.200)</li>
-                <li>‚úÖ Templates alta convers√£o (R$ 800)</li>
+                <li>? ConfiguraÁ„o completa (R$ 1.500)</li>
+                <li>? Treinamento personalizado (R$ 2.000)</li>
+                <li>? Suporte premium 60 dias (R$ 1.200)</li>
+                <li>? Templates alta convers„o (R$ 800)</li>
               </ul>
             </div>
             <div className="text-xl font-bold">
@@ -288,9 +288,9 @@ export default function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto">
-            {['Teste 14 dias gr√°tis', 'Configura√ß√£o inclusa', 'Suporte premium', 'Garantia 60 dias'].map((item) => (
+            {['Teste 14 dias gr·tis', 'ConfiguraÁ„o inclusa', 'Suporte premium', 'Garantia 60 dias'].map((item) => (
               <div key={item} className="flex items-center justify-center text-gray-300">
-                <span className="mr-2">‚úÖ</span>
+                <span className="mr-2">?</span>
                 {item}
               </div>
             ))}
@@ -298,7 +298,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/generator" className="px-12 py-4 bg-blue-600 text-white text-lg rounded-lg font-bold hover:bg-blue-700 transition">
-              Come√ßar Teste Gratuito
+              ComeÁar Teste Gratuito
             </Link>
             <Link href="/pricing" className="px-12 py-4 border-2 border-white text-white text-lg rounded-lg font-bold hover:bg-white hover:text-gray-900 transition">
               Ver Planos
@@ -306,7 +306,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 p-4 bg-white/10 rounded-lg inline-block">
-            <span className="text-gray-300">üõ°Ô∏è Sem Riscos: Garantia total de 60 dias</span>
+            <span className="text-gray-300">??? Sem Riscos: Garantia total de 60 dias</span>
           </div>
         </div>
       </section>
@@ -315,10 +315,10 @@ export default function HomePage() {
       <footer className="py-8 px-6 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
           <span className="text-gray-600 dark:text-gray-400">
-            ¬© {new Date().getFullYear()} vendeSozinho - Todos os direitos reservados
+            © {new Date().getFullYear()} vendeSozinho - Todos os direitos reservados
           </span>
           <nav className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/pricing" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">Pre√ßos</Link>
+            <Link href="/pricing" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">PreÁos</Link>
             <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">Termos</a>
             <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">Privacidade</a>
           </nav>
