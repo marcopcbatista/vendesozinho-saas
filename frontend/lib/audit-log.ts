@@ -1,4 +1,4 @@
-interface AuditLogEntry {
+﻿interface AuditLogEntry {
   event: string
   userId?: string
   email?: string
@@ -92,7 +92,7 @@ function logToConsole(entry: AuditLogEntry) {
   ) || 'DEFAULT'
 
   const timestamp = entry.timestamp
-  const status = entry.success ? '✅' : '❌'
+  const status = entry.success ? 'âœ…' : 'âŒ'
   const userInfo = entry.email ? `[${entry.email}]` : entry.userId ? `[${entry.userId}]` : '[Anonymous]'
   
   console.log(
@@ -240,7 +240,7 @@ async function sendAlert(entry: AuditLogEntry) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      text: `🚨 Security Alert: ${entry.event}`,
+      text: `ðŸš¨ Security Alert: ${entry.event}`,
       attachments: [{
         color: 'danger',
         fields: [
@@ -254,7 +254,7 @@ async function sendAlert(entry: AuditLogEntry) {
   })
   */
 
-  console.warn(`🚨 SECURITY ALERT: ${entry.event}`, entry)
+  console.warn(`ðŸš¨ SECURITY ALERT: ${entry.event}`, entry)
 }
 
 // Specialized logging functions
@@ -350,3 +350,4 @@ if (typeof process !== 'undefined') {
     }
   })
 }
+

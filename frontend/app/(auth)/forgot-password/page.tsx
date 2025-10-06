@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
@@ -29,9 +29,9 @@ export default function ForgotPasswordPage() {
     const newErrors: FormErrors = {}
     
     if (!formData.email) {
-      newErrors.email = 'Email é obrigatório'
+      newErrors.email = 'Email Ã© obrigatÃ³rio'
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Email inválido'
+      newErrors.email = 'Email invÃ¡lido'
     }
     
     setErrors(newErrors)
@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
       } else if (error.message?.includes('Too many requests')) {
         setErrors({ general: 'Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.' })
       } else if (error.message?.includes('Network')) {
-        setErrors({ general: 'Erro de conexão. Verifique sua internet e tente novamente.' })
+        setErrors({ general: 'Erro de conexÃ£o. Verifique sua internet e tente novamente.' })
       } else {
         setErrors({ general: error.message || 'Erro interno. Tente novamente.' })
       }
@@ -90,20 +90,20 @@ export default function ForgotPasswordPage() {
               Email enviado!
             </h2>
             <p className="text-gray-600">
-              Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
+              Verifique sua caixa de entrada e siga as instruÃ§Ãµes para redefinir sua senha.
             </p>
           </div>
           
           <div className="space-y-4 text-sm text-gray-600 mb-6">
             <p>
-              📧 Enviamos um link de recuperação para:{' '}
+              ðŸ“§ Enviamos um link de recuperaÃ§Ã£o para:{' '}
               <span className="font-medium text-gray-900">{formData.email}</span>
             </p>
             <p>
-              ⏰ O link expira em <strong>1 hora</strong>
+              â° O link expira em <strong>1 hora</strong>
             </p>
             <p>
-              📂 Não encontrou? Verifique sua pasta de spam
+              ðŸ“‚ NÃ£o encontrou? Verifique sua pasta de spam
             </p>
           </div>
           
@@ -143,8 +143,8 @@ export default function ForgotPasswordPage() {
                 Esqueceu sua senha?
               </h1>
               <p className="text-blue-100 text-lg leading-relaxed">
-                Não se preocupe! Isso acontece com todo mundo. 
-                Vamos ajudá-lo a recuperar o acesso à sua conta de forma segura.
+                NÃ£o se preocupe! Isso acontece com todo mundo. 
+                Vamos ajudÃ¡-lo a recuperar o acesso Ã  sua conta de forma segura.
               </p>
             </div>
             
@@ -155,18 +155,18 @@ export default function ForgotPasswordPage() {
               </div>
               <div className="flex items-center space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-400" />
-                <span>Link com expiração automática</span>
+                <span>Link com expiraÃ§Ã£o automÃ¡tica</span>
               </div>
               <div className="flex items-center space-x-3">
                 <CheckCircle className="w-5 h-5 text-green-400" />
-                <span>Sem alteração não autorizada</span>
+                <span>Sem alteraÃ§Ã£o nÃ£o autorizada</span>
               </div>
             </div>
             
             <div className="mt-8 p-4 bg-white/10 rounded-lg">
               <p className="text-sm text-blue-100">
-                💡 <strong>Dica:</strong> Para maior segurança, defina uma senha forte 
-                com letras, números e símbolos quando recuperar o acesso.
+                ðŸ’¡ <strong>Dica:</strong> Para maior seguranÃ§a, defina uma senha forte 
+                com letras, nÃºmeros e sÃ­mbolos quando recuperar o acesso.
               </p>
             </div>
           </div>
@@ -262,7 +262,7 @@ export default function ForgotPasswordPage() {
                 ) : (
                   <>
                     <Mail className="w-4 h-4 mr-2" />
-                    Enviar link de recuperação
+                    Enviar link de recuperaÃ§Ã£o
                   </>
                 )}
               </button>
@@ -275,21 +275,21 @@ export default function ForgotPasswordPage() {
                   Precisa de ajuda?
                 </h4>
                 <p className="text-sm text-gray-600">
-                  Se você não conseguir recuperar sua senha ou não receber o email, 
+                  Se vocÃª nÃ£o conseguir recuperar sua senha ou nÃ£o receber o email, 
                   entre em contato com nosso suporte.
                 </p>
                 <Link
                   href="/support"
                   className="inline-block mt-2 text-sm text-blue-600 hover:text-blue-800 font-medium"
                 >
-                  Contatar Suporte →
+                  Contatar Suporte â†’
                 </Link>
               </div>
             </div>
             
             {/* Security Notice */}
             <div className="mt-6 text-center text-xs text-gray-500">
-              <p>🔒 Link válido por apenas 1 hora por motivos de segurança</p>
+              <p>ðŸ”’ Link vÃ¡lido por apenas 1 hora por motivos de seguranÃ§a</p>
             </div>
           </div>
         </div>
@@ -297,3 +297,4 @@ export default function ForgotPasswordPage() {
     </div>
   )
 }
+

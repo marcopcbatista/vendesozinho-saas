@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { SignJWT } from 'jose'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
@@ -12,17 +12,17 @@ const registerSchema = z.object({
   name: z.string()
     .min(2, 'Nome deve ter pelo menos 2 caracteres')
     .max(100, 'Nome muito longo')
-    .regex(/^[a-zA-ZÀ-ÿ\s]+$/, 'Nome deve conter apenas letras e espaços'),
+    .regex(/^[a-zA-ZÃ€-Ã¿\s]+$/, 'Nome deve conter apenas letras e espaÃ§os'),
   email: z.string()
-    .email('Email inválido')
+    .email('Email invÃ¡lido')
     .max(255, 'Email muito longo'),
   phone: z.string()
-    .regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, 'Telefone inválido')
+    .regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, 'Telefone invÃ¡lido')
     .optional(),
   password: z.string()
     .min(8, 'Senha deve ter pelo menos 8 caracteres')
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, 
-           'Senha deve conter: maiúscula, minúscula, número e símbolo')
+           'Senha deve conter: maiÃºscula, minÃºscula, nÃºmero e sÃ­mbolo')
 })
 
 // JWT secret
@@ -297,3 +297,4 @@ async function storeVerificationToken(userId: string, token: string) {
   // Store email verification token
   // Implementation depends on your database choice
 }
+

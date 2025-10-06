@@ -1,4 +1,4 @@
-// Email service abstraction - adapt to your email provider
+﻿// Email service abstraction - adapt to your email provider
 // Supports multiple providers: Resend, SendGrid, Nodemailer, AWS SES
 
 interface EmailProvider {
@@ -58,34 +58,34 @@ class EmailTemplates {
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎉 Bem-vindo ao Sistema!</h1>
+            <h1>ðŸŽ‰ Bem-vindo ao Sistema!</h1>
         </div>
         <div class="content">
-            <h2>Olá, ${name}!</h2>
-            <p>Sua conta foi criada com sucesso. Estamos muito felizes em tê-lo conosco!</p>
+            <h2>OlÃ¡, ${name}!</h2>
+            <p>Sua conta foi criada com sucesso. Estamos muito felizes em tÃª-lo conosco!</p>
             
-            <p>Para começar a usar todos os recursos do sistema, você precisa verificar seu email:</p>
+            <p>Para comeÃ§ar a usar todos os recursos do sistema, vocÃª precisa verificar seu email:</p>
             
             <div style="text-align: center;">
                 <a href="${verificationUrl}" class="button">Verificar Email</a>
             </div>
             
             <div class="security-notice">
-                <strong>🔒 Nota de Segurança:</strong>
+                <strong>ðŸ”’ Nota de SeguranÃ§a:</strong>
                 <ul>
                     <li>Este link expira em 24 horas</li>
-                    <li>Use uma senha forte e única</li>
+                    <li>Use uma senha forte e Ãºnica</li>
                     <li>Nunca compartilhe suas credenciais</li>
                 </ul>
             </div>
             
-            <p>Se você não criou esta conta, pode ignorar este email com segurança.</p>
+            <p>Se vocÃª nÃ£o criou esta conta, pode ignorar este email com seguranÃ§a.</p>
             
             <p>Atenciosamente,<br>Equipe do Sistema</p>
         </div>
         <div class="footer">
-            <p>Este é um email automático, não responda a esta mensagem.</p>
-            <p>Se você está tendo problemas com o botão, copie e cole este link no seu navegador:<br>
+            <p>Este Ã© um email automÃ¡tico, nÃ£o responda a esta mensagem.</p>
+            <p>Se vocÃª estÃ¡ tendo problemas com o botÃ£o, copie e cole este link no seu navegador:<br>
             <a href="${verificationUrl}">${verificationUrl}</a></p>
         </div>
     </div>
@@ -95,28 +95,28 @@ class EmailTemplates {
     const text = `
 Bem-vindo ao Sistema, ${name}!
 
-Sua conta foi criada com sucesso. Para começar a usar o sistema, verifique seu email clicando no link abaixo:
+Sua conta foi criada com sucesso. Para comeÃ§ar a usar o sistema, verifique seu email clicando no link abaixo:
 
 ${verificationUrl}
 
-Nota de Segurança:
+Nota de SeguranÃ§a:
 - Este link expira em 24 horas
-- Use uma senha forte e única
+- Use uma senha forte e Ãºnica
 - Nunca compartilhe suas credenciais
 
-Se você não criou esta conta, pode ignorar este email.
+Se vocÃª nÃ£o criou esta conta, pode ignorar este email.
 
 Atenciosamente,
 Equipe do Sistema
 
 ---
-Este é um email automático, não responda a esta mensagem.
+Este Ã© um email automÃ¡tico, nÃ£o responda a esta mensagem.
     `.trim()
 
     return {
       html,
       text,
-      subject: '🎉 Bem-vindo! Verifique seu email'
+      subject: 'ðŸŽ‰ Bem-vindo! Verifique seu email'
     }
   }
 
@@ -143,42 +143,42 @@ Este é um email automático, não responda a esta mensagem.
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔐 Redefinir Senha</h1>
+            <h1>ðŸ” Redefinir Senha</h1>
         </div>
         <div class="content">
-            <h2>Olá, ${name}!</h2>
-            <p>Recebemos uma solicitação para redefinir a senha da sua conta.</p>
+            <h2>OlÃ¡, ${name}!</h2>
+            <p>Recebemos uma solicitaÃ§Ã£o para redefinir a senha da sua conta.</p>
             
-            <p>Se foi você quem solicitou, clique no botão abaixo para criar uma nova senha:</p>
+            <p>Se foi vocÃª quem solicitou, clique no botÃ£o abaixo para criar uma nova senha:</p>
             
             <div style="text-align: center;">
                 <a href="${resetUrl}" class="button">Redefinir Senha</a>
             </div>
             
             <div class="warning">
-                <strong>⚠️ Importante:</strong>
+                <strong>âš ï¸ Importante:</strong>
                 <ul>
                     <li>Este link expira em ${expiresIn}</li>
-                    <li>Só pode ser usado uma vez</li>
-                    <li>Se você não solicitou, ignore este email</li>
-                    <li>Sua senha atual continua válida até você alterá-la</li>
+                    <li>SÃ³ pode ser usado uma vez</li>
+                    <li>Se vocÃª nÃ£o solicitou, ignore este email</li>
+                    <li>Sua senha atual continua vÃ¡lida atÃ© vocÃª alterÃ¡-la</li>
                 </ul>
             </div>
             
-            <p>Por segurança, recomendamos que você:</p>
+            <p>Por seguranÃ§a, recomendamos que vocÃª:</p>
             <ul>
                 <li>Use uma senha forte com pelo menos 8 caracteres</li>
-                <li>Inclua letras maiúsculas, minúsculas, números e símbolos</li>
-                <li>Não reutilize senhas de outras contas</li>
+                <li>Inclua letras maiÃºsculas, minÃºsculas, nÃºmeros e sÃ­mbolos</li>
+                <li>NÃ£o reutilize senhas de outras contas</li>
             </ul>
             
-            <p>Se você não solicitou esta redefinição, pode ignorar este email com segurança. Sua conta permanece protegida.</p>
+            <p>Se vocÃª nÃ£o solicitou esta redefiniÃ§Ã£o, pode ignorar este email com seguranÃ§a. Sua conta permanece protegida.</p>
             
             <p>Atenciosamente,<br>Equipe do Sistema</p>
         </div>
         <div class="footer">
-            <p>Este é um email automático, não responda a esta mensagem.</p>
-            <p>Se você está tendo problemas com o botão, copie e cole este link no seu navegador:<br>
+            <p>Este Ã© um email automÃ¡tico, nÃ£o responda a esta mensagem.</p>
+            <p>Se vocÃª estÃ¡ tendo problemas com o botÃ£o, copie e cole este link no seu navegador:<br>
             <a href="${resetUrl}">${resetUrl}</a></p>
         </div>
     </div>
@@ -188,32 +188,32 @@ Este é um email automático, não responda a esta mensagem.
     const text = `
 Redefinir Senha - ${name}
 
-Recebemos uma solicitação para redefinir a senha da sua conta.
+Recebemos uma solicitaÃ§Ã£o para redefinir a senha da sua conta.
 
-Se foi você quem solicitou, clique no link abaixo:
+Se foi vocÃª quem solicitou, clique no link abaixo:
 ${resetUrl}
 
 IMPORTANTE:
 - Este link expira em ${expiresIn}
-- Só pode ser usado uma vez
-- Se você não solicitou, ignore este email
+- SÃ³ pode ser usado uma vez
+- Se vocÃª nÃ£o solicitou, ignore este email
 
-Recomendações de segurança:
+RecomendaÃ§Ãµes de seguranÃ§a:
 - Use uma senha forte com pelo menos 8 caracteres
-- Inclua maiúsculas, minúsculas, números e símbolos
-- Não reutilize senhas de outras contas
+- Inclua maiÃºsculas, minÃºsculas, nÃºmeros e sÃ­mbolos
+- NÃ£o reutilize senhas de outras contas
 
 Atenciosamente,
 Equipe do Sistema
 
 ---
-Este é um email automático, não responda a esta mensagem.
+Este Ã© um email automÃ¡tico, nÃ£o responda a esta mensagem.
     `.trim()
 
     return {
       html,
       text,
-      subject: '🔐 Redefinir sua senha'
+      subject: 'ðŸ” Redefinir sua senha'
     }
   }
 
@@ -231,7 +231,7 @@ Este é um email automático, não responda a esta mensagem.
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Alerta de Segurança</title>
+    <title>Alerta de SeguranÃ§a</title>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -244,10 +244,10 @@ Este é um email automático, não responda a esta mensagem.
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚨 Alerta de Segurança</h1>
+            <h1>ðŸš¨ Alerta de SeguranÃ§a</h1>
         </div>
         <div class="content">
-            <h2>Olá, ${name}!</h2>
+            <h2>OlÃ¡, ${name}!</h2>
             
             <div class="alert">
                 <strong>Atividade suspeita detectada em sua conta!</strong>
@@ -260,48 +260,48 @@ Este é um email automático, não responda a esta mensagem.
                 <strong>Evento:</strong> ${event}<br>
                 <strong>IP:</strong> ${ip}<br>
                 <strong>Data/Hora:</strong> ${timestamp}<br>
-                ${location ? `<strong>Localização:</strong> ${location}<br>` : ''}
+                ${location ? `<strong>LocalizaÃ§Ã£o:</strong> ${location}<br>` : ''}
             </div>
             
             <p><strong>O que fazer:</strong></p>
             <ul>
-                <li>Se foi você, pode ignorar este alerta</li>
-                <li>Se não reconhece esta atividade, <strong>altere sua senha imediatamente</strong></li>
-                <li>Revise os dispositivos conectados à sua conta</li>
-                <li>Entre em contato conosco se suspeitar de acesso não autorizado</li>
+                <li>Se foi vocÃª, pode ignorar este alerta</li>
+                <li>Se nÃ£o reconhece esta atividade, <strong>altere sua senha imediatamente</strong></li>
+                <li>Revise os dispositivos conectados Ã  sua conta</li>
+                <li>Entre em contato conosco se suspeitar de acesso nÃ£o autorizado</li>
             </ul>
             
-            <p>Sua segurança é nossa prioridade!</p>
+            <p>Sua seguranÃ§a Ã© nossa prioridade!</p>
             
-            <p>Atenciosamente,<br>Equipe de Segurança</p>
+            <p>Atenciosamente,<br>Equipe de SeguranÃ§a</p>
         </div>
     </div>
 </body>
 </html>`
 
     const text = `
-ALERTA DE SEGURANÇA - ${name}
+ALERTA DE SEGURANÃ‡A - ${name}
 
 Detectamos atividade suspeita em sua conta:
 
 Evento: ${event}
 IP: ${ip}
 Data/Hora: ${timestamp}
-${location ? `Localização: ${location}` : ''}
+${location ? `LocalizaÃ§Ã£o: ${location}` : ''}
 
 O que fazer:
-- Se foi você, pode ignorar este alerta
-- Se não reconhece, altere sua senha imediatamente
+- Se foi vocÃª, pode ignorar este alerta
+- Se nÃ£o reconhece, altere sua senha imediatamente
 - Revise dispositivos conectados
-- Entre em contato se suspeitar de acesso não autorizado
+- Entre em contato se suspeitar de acesso nÃ£o autorizado
 
-Equipe de Segurança
+Equipe de SeguranÃ§a
     `.trim()
 
     return {
       html,
       text,
-      subject: '🚨 Alerta de segurança em sua conta'
+      subject: 'ðŸš¨ Alerta de seguranÃ§a em sua conta'
     }
   }
 }
@@ -365,7 +365,7 @@ class NodemailerProvider implements EmailProvider {
 
 class MockProvider implements EmailProvider {
   async sendEmail(params: SendEmailParams): Promise<void> {
-    console.log('📧 Mock Email Send:')
+    console.log('ðŸ“§ Mock Email Send:')
     console.log(`To: ${Array.isArray(params.to) ? params.to.join(', ') : params.to}`)
     console.log(`Subject: ${params.subject}`)
     console.log(`From: ${params.from || 'noreply@sistema.com'}`)
@@ -470,3 +470,4 @@ export const sendCustomEmail = emailService.sendCustomEmail.bind(emailService)
 // Export classes for advanced usage
 export { EmailService, EmailTemplates, ResendProvider, NodemailerProvider, MockProvider }
 export type { EmailProvider, SendEmailParams, WelcomeEmailParams, PasswordResetEmailParams }
+

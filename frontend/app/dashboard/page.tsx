@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useAuth } from '@/hooks/use-auth'
 
@@ -6,7 +6,7 @@ export default function DashboardPage() {
   const { user, logout } = useAuth()
 
   if (!user) {
-    return <p>Você precisa estar logado para acessar o Dashboard.</p>
+    return <p>VocÃª precisa estar logado para acessar o Dashboard.</p>
   }
 
   return (
@@ -21,3 +21,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+

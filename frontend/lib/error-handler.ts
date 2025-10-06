@@ -1,4 +1,4 @@
-// lib/error-handler.ts
+﻿// lib/error-handler.ts
 import { logger } from './logger'
 
 export function handleError(error: unknown, context?: string) {
@@ -8,3 +8,4 @@ export function handleError(error: unknown, context?: string) {
     logger.error(context || 'Unknown error', error)
   }
 }
+

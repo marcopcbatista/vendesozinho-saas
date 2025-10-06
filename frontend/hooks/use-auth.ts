@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+﻿import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import { useCallback, useEffect } from 'react'
@@ -96,9 +96,9 @@ export interface AuthError {
 // ===== CONSTANTES =====
 const AUTH_STORAGE_KEY = 'vendesozinho_auth'
 const REFRESH_TOKEN_KEY = 'vendesozinho_refresh'
-const TOKEN_REFRESH_THRESHOLD = 5 * 60 * 1000 // 5 minutos antes da expiração
+const TOKEN_REFRESH_THRESHOLD = 5 * 60 * 1000 // 5 minutos antes da expiraÃ§Ã£o
 
-// ===== FUNÇÕES UTILITÁRIAS =====
+// ===== FUNÃ‡Ã•ES UTILITÃRIAS =====
 const getStoredAuth = (): { token: string; refreshToken: string; expiresAt: string } | null => {
   if (typeof window === 'undefined') return null
   
@@ -145,7 +145,7 @@ const authApi = {
     return response.json()
   },
 
-  // Registrar usuário
+  // Registrar usuÃ¡rio
   register: async (data: RegisterData): Promise<AuthResponse> => {
     const response = await fetch('/api/auth/register', {
       method: 'POST',
@@ -161,10 +161,10 @@ const authApi = {
     return response.json()
   },
 
-  // Buscar dados do usuário atual
+  // Buscar dados do usuÃ¡rio atual
   me: async (): Promise<User> => {
     const authData = getStoredAuth()
-    if (!authData) throw new Error('Não autenticado')
+    if (!authData) throw new Error('NÃ£o autenticado')
 
     const response = await fetch('/api/auth/me', {
       headers: { Authorization: `Bearer ${authData.token}` },
@@ -173,9 +173,9 @@ const authApi = {
     if (!response.ok) {
       if (response.status === 401) {
         clearStoredAuth()
-        throw new Error('Sessão expirada')
+        throw new Error('SessÃ£o expirada')
       }
-      throw new Error('Erro ao buscar dados do usuário')
+      throw new Error('Erro ao buscar dados do usuÃ¡rio')
     }
 
     return response.json()
@@ -184,7 +184,7 @@ const authApi = {
   // Refresh token
   refreshToken: async (): Promise<AuthResponse> => {
     const authData = getStoredAuth()
-    if (!authData?.refreshToken) throw new Error('Token de refresh não encontrado')
+    if (!authData?.refreshToken) throw new Error('Token de refresh nÃ£o encontrado')
 
     const response = await fetch('/api/auth/refresh', {
       method: 'POST',
@@ -196,7 +196,7 @@ const authApi = {
 
     if (!response.ok) {
       clearStoredAuth()
-      throw new Error('Erro ao renovar sessão')
+      throw new Error('Erro ao renovar sessÃ£o')
     }
 
     return response.json()
@@ -230,14 +230,14 @@ const authApi = {
 
     if (!response.ok) {
       const error: AuthError = await response.json()
-      throw new Error(error.message || 'Erro ao enviar email de recuperação')
+      throw new Error(error.message || 'Erro ao enviar email de recuperaÃ§Ã£o')
     }
   },
 
   // Alterar senha
   changePassword: async (data: ChangePasswordData): Promise<void> => {
     const authData = getStoredAuth()
-    if (!authData) throw new Error('Não autenticado')
+    if (!authData) throw new Error('NÃ£o autenticado')
 
     const response = await fetch('/api/auth/change-password', {
       method: 'POST',
@@ -257,7 +257,7 @@ const authApi = {
   // Atualizar perfil
   updateProfile: async (data: UpdateProfileData): Promise<User> => {
     const authData = getStoredAuth()
-    if (!authData) throw new Error('Não autenticado')
+    if (!authData) throw new Error('NÃ£o autenticado')
 
     const formData = new FormData()
     
@@ -293,7 +293,7 @@ export const useAuth = () => {
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  // Query para buscar dados do usuário
+  // Query para buscar dados do usuÃ¡rio
   const {
     data: user,
     isLoading,
@@ -364,7 +364,7 @@ export const useAuth = () => {
   const resetPasswordMutation = useMutation({
     mutationFn: authApi.resetPassword,
     onSuccess: () => {
-      toast.success('Email de recuperação enviado com sucesso!')
+      toast.success('Email de recuperaÃ§Ã£o enviado com sucesso!')
     },
     onError: (error: Error) => {
       toast.error(error.message)
@@ -394,7 +394,7 @@ export const useAuth = () => {
     },
   })
 
-  // Função para refresh automático do token
+  // FunÃ§Ã£o para refresh automÃ¡tico do token
   const refreshTokenIfNeeded = useCallback(async () => {
     const authData = getStoredAuth()
     if (!authData || !isTokenExpired(authData.expiresAt)) return
@@ -424,7 +424,7 @@ export const useAuth = () => {
     return () => clearInterval(interval)
   }, [refreshTokenIfNeeded])
 
-  // Funções de conveniência para verificação de permissões
+  // FunÃ§Ãµes de conveniÃªncia para verificaÃ§Ã£o de permissÃµes
   const hasPermission = useCallback((resource: string, action: string): boolean => {
     if (!user?.permissions) return false
     
@@ -450,20 +450,20 @@ export const useAuth = () => {
     return isAdmin() || hasPermission(resource, action)
   }, [isAdmin, hasPermission])
 
-  // Função para login com redirecionamento
+  // FunÃ§Ã£o para login com redirecionamento
   const login = useCallback(async (credentials: LoginCredentials, redirectTo?: string) => {
     await loginMutation.mutateAsync(credentials)
     
-    // Redirecionamento após login bem-sucedido
+    // Redirecionamento apÃ³s login bem-sucedido
     const redirect = redirectTo || '/dashboard'
     router.push(redirect)
   }, [loginMutation, router])
 
-  // Função para registro com redirecionamento  
+  // FunÃ§Ã£o para registro com redirecionamento  
   const register = useCallback(async (data: RegisterData, redirectTo?: string) => {
     await registerMutation.mutateAsync(data)
     
-    // Redirecionamento após registro bem-sucedido
+    // Redirecionamento apÃ³s registro bem-sucedido
     const redirect = redirectTo || '/dashboard'
     router.push(redirect)
   }, [registerMutation, router])
@@ -475,7 +475,7 @@ export const useAuth = () => {
     isAuthenticated: !!user,
     error,
 
-    // Ações
+    // AÃ§Ãµes
     login,
     register,
     logout: logoutMutation.mutate,
@@ -492,14 +492,14 @@ export const useAuth = () => {
     isChangingPassword: changePasswordMutation.isPending,
     isUpdatingProfile: updateProfileMutation.isPending,
 
-    // Verificações de permissão
+    // VerificaÃ§Ãµes de permissÃ£o
     hasPermission,
     hasRole,
     hasAnyRole,
     isAdmin,
     canAccess,
 
-    // Utilitários
+    // UtilitÃ¡rios
     refreshToken: refreshTokenIfNeeded,
   }
 }
@@ -520,7 +520,7 @@ export const useRequireAuth = (redirectTo: string = '/login') => {
   return { isAuthenticated, isLoading }
 }
 
-// Hook para verificar permissões específicas
+// Hook para verificar permissÃµes especÃ­ficas
 export const usePermission = (resource: string, action: string = 'read') => {
   const { canAccess, isLoading } = useAuth()
   
@@ -530,7 +530,7 @@ export const usePermission = (resource: string, action: string = 'read') => {
   }
 }
 
-// Hook para dados do usuário com fallback
+// Hook para dados do usuÃ¡rio com fallback
 export const useUser = () => {
   const { user, isLoading, error, refetchUser } = useAuth()
   
@@ -539,7 +539,7 @@ export const useUser = () => {
     isLoading,
     error,
     refetch: refetchUser,
-    displayName: user?.name || 'Usuário',
+    displayName: user?.name || 'UsuÃ¡rio',
     initials: user?.name
       ?.split(' ')
       .map(n => n[0])
@@ -548,3 +548,4 @@ export const useUser = () => {
       .slice(0, 2) || 'U',
   }
 }
+

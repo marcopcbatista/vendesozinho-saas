@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify, SignJWT } from 'jose'
 import { auditLog } from '@/lib/audit-log'
 import { getUserById, isRefreshTokenValid, updateRefreshToken } from '@/lib/database'
@@ -243,3 +243,4 @@ export async function POST(request: NextRequest) {
 function generateSessionId(): string {
   return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 }
+

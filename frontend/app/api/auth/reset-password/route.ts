@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import { z } from 'zod'
 import bcrypt from 'bcryptjs'
@@ -17,18 +17,18 @@ const updateProfileSchema = z.object({
     .max(100, 'Nome muito longo')
     .optional(),
   phone: z.string()
-    .regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, 'Telefone inválido')
+    .regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, 'Telefone invÃ¡lido')
     .optional()
     .nullable(),
-  avatar: z.string().url('URL do avatar inválida').optional().nullable()
+  avatar: z.string().url('URL do avatar invÃ¡lida').optional().nullable()
 })
 
 const updatePasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Senha atual é obrigatória'),
+  currentPassword: z.string().min(1, 'Senha atual Ã© obrigatÃ³ria'),
   newPassword: z.string()
     .min(8, 'Nova senha deve ter pelo menos 8 caracteres')
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, 
-           'Nova senha deve conter: maiúscula, minúscula, número e símbolo')
+           'Nova senha deve conter: maiÃºscula, minÃºscula, nÃºmero e sÃ­mbolo')
 })
 
 // GET - Get current user info
@@ -495,3 +495,4 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+

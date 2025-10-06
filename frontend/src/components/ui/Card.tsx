@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface CardProps {
   children: React.ReactNode;
@@ -64,3 +64,4 @@ export function CardFooter({ children, className = '' }: CardFooterProps) {
     </div>
   );
 }
+

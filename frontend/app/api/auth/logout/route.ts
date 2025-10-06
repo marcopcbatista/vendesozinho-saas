@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import { auditLog } from '@/lib/audit-log'
 import { revokeRefreshToken, invalidateUserSessions } from '@/lib/database'
@@ -143,3 +143,4 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   return POST(request)
 }
+

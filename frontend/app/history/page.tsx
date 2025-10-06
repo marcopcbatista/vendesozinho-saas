@@ -1,17 +1,17 @@
-// app/history/page.tsx
+﻿// app/history/page.tsx
 import { Metadata } from 'next'
 import { History, Search, Filter, Calendar, Star, Copy, Download, Trash2, Eye } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Histórico | vendeSozinho',
-  description: 'Histórico completo de todos os seus textos gerados',
+  title: 'HistÃ³rico | vendeSozinho',
+  description: 'HistÃ³rico completo de todos os seus textos gerados',
 }
 
 const generatedTexts = [
   {
     id: 1,
-    title: 'Página de Vendas - Curso de Marketing',
-    template: 'Página de Vendas Clássica',
+    title: 'PÃ¡gina de Vendas - Curso de Marketing',
+    template: 'PÃ¡gina de Vendas ClÃ¡ssica',
     createdAt: '2024-03-15T10:30:00',
     wordCount: 1200,
     isFavorite: true,
@@ -20,7 +20,7 @@ const generatedTexts = [
       conversions: 12,
       rate: '4.9%'
     },
-    preview: 'Descubra os segredos que os especialistas em marketing não querem que você saiba...'
+    preview: 'Descubra os segredos que os especialistas em marketing nÃ£o querem que vocÃª saiba...'
   },
   {
     id: 2,
@@ -34,11 +34,11 @@ const generatedTexts = [
       conversions: 8,
       rate: '4.2%'
     },
-    preview: 'Olá [NOME], você já se perguntou por que algumas pessoas conseguem...'
+    preview: 'OlÃ¡ [NOME], vocÃª jÃ¡ se perguntou por que algumas pessoas conseguem...'
   },
   {
     id: 3,
-    title: 'Anúncio Facebook - Consultoria',
+    title: 'AnÃºncio Facebook - Consultoria',
     template: 'Facebook Ads',
     createdAt: '2024-03-13T09:15:00',
     wordCount: 320,
@@ -48,11 +48,11 @@ const generatedTexts = [
       conversions: 45,
       rate: '3.8%'
     },
-    preview: '🚀 Transforme seu negócio em 30 dias! Descubra como nossos clientes...'
+    preview: 'ðŸš€ Transforme seu negÃ³cio em 30 dias! Descubra como nossos clientes...'
   },
   {
     id: 4,
-    title: 'VSL Script - Lançamento',
+    title: 'VSL Script - LanÃ§amento',
     template: 'Video Sales Letter',
     createdAt: '2024-03-12T14:45:00',
     wordCount: 2100,
@@ -62,7 +62,7 @@ const generatedTexts = [
       conversions: 5,
       rate: '5.6%'
     },
-    preview: 'Nos próximos 15 minutos, vou revelar exatamente como você pode...'
+    preview: 'Nos prÃ³ximos 15 minutos, vou revelar exatamente como vocÃª pode...'
   },
   {
     id: 5,
@@ -76,7 +76,7 @@ const generatedTexts = [
       conversions: 23,
       rate: '4.1%'
     },
-    preview: 'A verdade que ninguém te conta sobre empreendedorismo... 💡'
+    preview: 'A verdade que ninguÃ©m te conta sobre empreendedorismo... ðŸ’¡'
   }
 ]
 
@@ -91,12 +91,12 @@ export default function HistoryPage() {
               <History className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Histórico de Textos</h1>
+              <h1 className="text-3xl font-bold text-gray-900">HistÃ³rico de Textos</h1>
               <p className="text-gray-600">Todos os seus textos gerados organizados e analisados</p>
             </div>
           </div>
 
-          {/* Estatísticas Rápidas */}
+          {/* EstatÃ­sticas RÃ¡pidas */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-lg p-4">
               <p className="text-sm text-gray-600">Total de Textos</p>
@@ -107,7 +107,7 @@ export default function HistoryPage() {
               <p className="text-2xl font-bold text-gray-900">89,450</p>
             </div>
             <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-gray-600">Taxa Média Conversão</p>
+              <p className="text-sm text-gray-600">Taxa MÃ©dia ConversÃ£o</p>
               <p className="text-2xl font-bold text-green-600">4.4%</p>
             </div>
             <div className="bg-white rounded-lg p-4">
@@ -123,7 +123,7 @@ export default function HistoryPage() {
                 <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Buscar por título, template ou conteúdo..."
+                  placeholder="Buscar por tÃ­tulo, template ou conteÃºdo..."
                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 />
               </div>
@@ -138,10 +138,10 @@ export default function HistoryPage() {
             </button>
             <select className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500">
               <option>Todos os Templates</option>
-              <option>Página de Vendas</option>
+              <option>PÃ¡gina de Vendas</option>
               <option>Email Marketing</option>
               <option>Social Media</option>
-              <option>Vídeo</option>
+              <option>VÃ­deo</option>
             </select>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function HistoryPage() {
           {generatedTexts.map((text) => (
             <div key={text.id} className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between">
-                {/* Conteúdo Principal */}
+                {/* ConteÃºdo Principal */}
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-lg font-semibold text-gray-900">{text.title}</h3>
@@ -172,15 +172,15 @@ export default function HistoryPage() {
                     <span>{text.wordCount} palavras</span>
                     <span className="flex items-center gap-1">
                       <Eye className="w-4 h-4" />
-                      {text.performance.views} visualizações
+                      {text.performance.views} visualizaÃ§Ãµes
                     </span>
                     <span className="text-green-600 font-medium">
-                      {text.performance.conversions} conversões ({text.performance.rate})
+                      {text.performance.conversions} conversÃµes ({text.performance.rate})
                     </span>
                   </div>
                 </div>
 
-                {/* Ações */}
+                {/* AÃ§Ãµes */}
                 <div className="flex items-center gap-2 ml-4">
                   <button className="p-2 text-gray-600 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors">
                     <Star className="w-4 h-4" />
@@ -203,7 +203,7 @@ export default function HistoryPage() {
           ))}
         </div>
 
-        {/* Paginação */}
+        {/* PaginaÃ§Ã£o */}
         <div className="mt-8 flex items-center justify-between">
           <p className="text-sm text-gray-500">Mostrando 1-5 de 127 textos</p>
           <div className="flex gap-2">
@@ -214,7 +214,7 @@ export default function HistoryPage() {
             <button className="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm">2</button>
             <button className="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm">3</button>
             <button className="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm">
-              Próximo
+              PrÃ³ximo
             </button>
           </div>
         </div>
@@ -222,3 +222,4 @@ export default function HistoryPage() {
     </div>
   )
 }
+

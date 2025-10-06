@@ -1,10 +1,10 @@
-// app/generator/page.tsx
+﻿// app/generator/page.tsx
 import { Metadata } from 'next'
 import { Sparkles, Wand2, Copy, Download, Save } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Gerador de Textos | vendeSozinho',
-  description: 'Gere textos de vendas profissionais com IA avançada',
+  description: 'Gere textos de vendas profissionais com IA avanÃ§ada',
 }
 
 export default function GeneratorPage() {
@@ -19,7 +19,7 @@ export default function GeneratorPage() {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Gerador de Textos</h1>
-              <p className="text-gray-600">Crie copy persuasivo com inteligência artificial</p>
+              <p className="text-gray-600">Crie copy persuasivo com inteligÃªncia artificial</p>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@ export default function GeneratorPage() {
           <div className="bg-white rounded-2xl shadow-sm p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
               <Wand2 className="w-5 h-5 text-purple-600" />
-              Configurações
+              ConfiguraÃ§Ãµes
             </h2>
 
             <div className="space-y-6">
@@ -39,19 +39,19 @@ export default function GeneratorPage() {
                   Tipo de Texto
                 </label>
                 <select className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                  <option>Página de Vendas</option>
+                  <option>PÃ¡gina de Vendas</option>
                   <option>Email de Vendas</option>
-                  <option>Anúncio do Facebook</option>
+                  <option>AnÃºncio do Facebook</option>
                   <option>Copy para Instagram</option>
                   <option>VSL (Video Sales Letter)</option>
                   <option>Carta de Vendas</option>
                 </select>
               </div>
 
-              {/* Produto/Serviço */}
+              {/* Produto/ServiÃ§o */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Produto ou Serviço
+                  Produto ou ServiÃ§o
                 </label>
                 <input 
                   type="text" 
@@ -60,10 +60,10 @@ export default function GeneratorPage() {
                 />
               </div>
 
-              {/* Público-alvo */}
+              {/* PÃºblico-alvo */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Público-alvo
+                  PÃºblico-alvo
                 </label>
                 <input 
                   type="text" 
@@ -72,33 +72,33 @@ export default function GeneratorPage() {
                 />
               </div>
 
-              {/* Benefícios principais */}
+              {/* BenefÃ­cios principais */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Principais Benefícios
+                  Principais BenefÃ­cios
                 </label>
                 <textarea 
                   rows={4}
-                  placeholder="Liste os principais benefícios do seu produto..."
+                  placeholder="Liste os principais benefÃ­cios do seu produto..."
                   className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
                 />
               </div>
 
-              {/* Tom da comunicação */}
+              {/* Tom da comunicaÃ§Ã£o */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Tom da Comunicação
+                  Tom da ComunicaÃ§Ã£o
                 </label>
                 <select className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                   <option>Profissional</option>
-                  <option>Casual e Amigável</option>
+                  <option>Casual e AmigÃ¡vel</option>
                   <option>Urgente e Direto</option>
                   <option>Educativo</option>
                   <option>Inspiracional</option>
                 </select>
               </div>
 
-              {/* Botão Gerar */}
+              {/* BotÃ£o Gerar */}
               <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-200 flex items-center justify-center gap-2">
                 <Sparkles className="w-5 h-5" />
                 Gerar Texto com IA
@@ -129,21 +129,22 @@ export default function GeneratorPage() {
             <div className="h-96 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <Wand2 className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <p className="text-lg font-medium">Aguardando configurações</p>
+                <p className="text-lg font-medium">Aguardando configuraÃ§Ãµes</p>
                 <p className="text-sm">Preencha os campos ao lado e clique em "Gerar Texto"</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Histórico Rápido */}
+        {/* HistÃ³rico RÃ¡pido */}
         <div className="mt-8 bg-white rounded-2xl shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Gerações Recentes</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">GeraÃ§Ãµes Recentes</h3>
           <div className="text-center py-8 text-gray-500">
-            <p>Seus textos gerados aparecerão aqui</p>
+            <p>Seus textos gerados aparecerÃ£o aqui</p>
           </div>
         </div>
       </div>
     </div>
   )
 }
+

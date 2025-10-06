@@ -1,4 +1,4 @@
-// Database abstraction layer - adapt to your database choice
+﻿// Database abstraction layer - adapt to your database choice
 // This file provides interfaces and mock implementations
 // Replace with your actual database implementation (Prisma, MongoDB, etc.)
 
@@ -555,3 +555,4 @@ if (typeof window === 'undefined') { // Server-side only
 
 // Export types and interfaces
 export type { User, RefreshToken, PasswordResetToken, EmailVerificationToken }
+

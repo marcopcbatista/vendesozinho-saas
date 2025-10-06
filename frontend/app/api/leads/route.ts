@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+﻿import { NextResponse } from 'next/server'
 import { getSupabaseServer } from '@/lib/supabase-server'
 
 export async function GET() {
@@ -23,3 +23,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Failed to create lead' }, { status: 500 })
   }
 }
+

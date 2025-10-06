@@ -1,4 +1,4 @@
-"use client"
+Ôªø"use client"
 
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -7,8 +7,8 @@ import { useState } from "react"
 import { login as loginUser } from "@/services/auth"
 
 const loginSchema = z.object({
-  email: z.string().email("E-mail inv·lido"),
-  password: z.string().min(6, "Senha mÌnima de 6 caracteres")
+  email: z.string().email("E-mail inv√°lido"),
+  password: z.string().min(6, "Senha m√≠nima de 6 caracteres")
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
@@ -39,3 +39,4 @@ export default function LoginPage() {
     </div>
   )
 }
+

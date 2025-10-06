@@ -1,4 +1,4 @@
-// ===== EXEMPLOS DE USO DO HOOK DE AUTENTICAÇÃO =====
+﻿// ===== EXEMPLOS DE USO DO HOOK DE AUTENTICAÃ‡ÃƒO =====
 
 import React, { useState } from 'react'
 import { useAuth, useRequireAuth, usePermission, useUser } from '../hooks/use-auth'
@@ -18,17 +18,17 @@ export const LoginExample: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Validação básica
+    // ValidaÃ§Ã£o bÃ¡sica
     const newErrors: Record<string, string> = {}
     
     if (!formData.email) {
-      newErrors.email = 'Email é obrigatório'
+      newErrors.email = 'Email Ã© obrigatÃ³rio'
     } else if (!ValidationUtils.validateEmail(formData.email)) {
-      newErrors.email = 'Email inválido'
+      newErrors.email = 'Email invÃ¡lido'
     }
     
     if (!formData.password) {
-      newErrors.password = 'Senha é obrigatória'
+      newErrors.password = 'Senha Ã© obrigatÃ³ria'
     }
     
     if (Object.keys(newErrors).length > 0) {
@@ -66,7 +66,7 @@ export const LoginExample: React.FC = () => {
             className={`input ${errors.password ? 'input-error' : ''}`}
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            placeholder="••••••••"
+            placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
           />
           {errors.password && <p className="form-error">{errors.password}</p>}
         </div>
@@ -124,7 +124,7 @@ export const RegisterExample: React.FC = () => {
     }
 
     if (!ValidationUtils.validateEmail(formData.email)) {
-      newErrors.email = 'Email inválido'
+      newErrors.email = 'Email invÃ¡lido'
     }
 
     const passwordValidation = ValidationUtils.validatePassword(formData.password)
@@ -133,15 +133,15 @@ export const RegisterExample: React.FC = () => {
     }
 
     if (formData.password !== formData.passwordConfirmation) {
-      newErrors.passwordConfirmation = 'As senhas não coincidem'
+      newErrors.passwordConfirmation = 'As senhas nÃ£o coincidem'
     }
 
     if (formData.phone && !ValidationUtils.validatePhone(formData.phone)) {
-      newErrors.phone = 'Formato de telefone inválido'
+      newErrors.phone = 'Formato de telefone invÃ¡lido'
     }
 
     if (!formData.acceptTerms) {
-      newErrors.acceptTerms = 'Você deve aceitar os termos de uso'
+      newErrors.acceptTerms = 'VocÃª deve aceitar os termos de uso'
     }
 
     setErrors(newErrors)
@@ -209,11 +209,11 @@ export const RegisterExample: React.FC = () => {
             className={`input ${errors.password ? 'input-error' : ''}`}
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            placeholder="••••••••"
+            placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
           />
           {errors.password && <p className="form-error">{errors.password}</p>}
           <p className="form-help">
-            Mínimo 8 caracteres com letras maiúsculas, minúsculas, números e símbolos
+            MÃ­nimo 8 caracteres com letras maiÃºsculas, minÃºsculas, nÃºmeros e sÃ­mbolos
           </p>
         </div>
 
@@ -224,7 +224,7 @@ export const RegisterExample: React.FC = () => {
             className={`input ${errors.passwordConfirmation ? 'input-error' : ''}`}
             value={formData.passwordConfirmation}
             onChange={(e) => setFormData({ ...formData, passwordConfirmation: e.target.value })}
-            placeholder="••••••••"
+            placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
           />
           {errors.passwordConfirmation && (
             <p className="form-error">{errors.passwordConfirmation}</p>
@@ -246,7 +246,7 @@ export const RegisterExample: React.FC = () => {
             </a>{' '}
             e{' '}
             <a href="/privacy" className="text-blue-600 hover:underline">
-              política de privacidade
+              polÃ­tica de privacidade
             </a>
           </label>
         </div>
@@ -271,7 +271,7 @@ export const RegisterExample: React.FC = () => {
   )
 }
 
-// ===== 3. COMPONENTE DE PERFIL DO USUÁRIO =====
+// ===== 3. COMPONENTE DE PERFIL DO USUÃRIO =====
 export const UserProfileExample: React.FC = () => {
   const { user, updateProfile, isUpdatingProfile, changePassword, isChangingPassword } = useAuth()
   const [isEditingProfile, setIsEditingProfile] = useState(false)
@@ -300,7 +300,7 @@ export const UserProfileExample: React.FC = () => {
 
   const handlePasswordChange = async () => {
     if (passwordData.newPassword !== passwordData.newPasswordConfirmation) {
-      toast.error('As senhas não coincidem')
+      toast.error('As senhas nÃ£o coincidem')
       return
     }
 
@@ -321,11 +321,11 @@ export const UserProfileExample: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      {/* Informações básicas */}
+      {/* InformaÃ§Ãµes bÃ¡sicas */}
       <div className="card">
         <div className="card-header">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Informações Pessoais</h3>
+            <h3 className="text-lg font-semibold">InformaÃ§Ãµes Pessoais</h3>
             <button
               onClick={() => setIsEditingProfile(!isEditingProfile)}
               className="btn btn-outline btn-sm"
@@ -405,19 +405,19 @@ export const UserProfileExample: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-2">
-              <p><strong>Telefone:</strong> {user.phone || 'Não informado'}</p>
-              <p><strong>Departamento:</strong> {user.department || 'Não informado'}</p>
+              <p><strong>Telefone:</strong> {user.phone || 'NÃ£o informado'}</p>
+              <p><strong>Departamento:</strong> {user.department || 'NÃ£o informado'}</p>
               <p><strong>Membro desde:</strong> {new Date(user.createdAt).toLocaleDateString('pt-BR')}</p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Alteração de senha */}
+      {/* AlteraÃ§Ã£o de senha */}
       <div className="card">
         <div className="card-header">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold">Segurança</h3>
+            <h3 className="text-lg font-semibold">SeguranÃ§a</h3>
             <button
               onClick={() => setIsChangingPass(!isChangingPass)}
               className="btn btn-outline btn-sm"
@@ -481,7 +481,7 @@ export const UserProfileExample: React.FC = () => {
   )
 }
 
-// ===== 4. COMPONENTE DE PROTEÇÃO DE ROTA =====
+// ===== 4. COMPONENTE DE PROTEÃ‡ÃƒO DE ROTA =====
 interface AuthGuardProps {
   children: React.ReactNode
   requiredRole?: 'admin' | 'manager' | 'seller' | 'viewer'
@@ -510,25 +510,25 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
     return fallback || <div>Acesso negado</div>
   }
 
-  // Verificar role específico
+  // Verificar role especÃ­fico
   if (requiredRole && !hasRole(requiredRole)) {
     return fallback || (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold text-gray-900">Acesso Restrito</h2>
         <p className="text-gray-600 mt-2">
-          Você não tem permissão para acessar esta página.
+          VocÃª nÃ£o tem permissÃ£o para acessar esta pÃ¡gina.
         </p>
       </div>
     )
   }
 
-  // Verificar permissão específica
+  // Verificar permissÃ£o especÃ­fica
   if (requiredPermission && !hasPermission(requiredPermission.resource, requiredPermission.action)) {
     return fallback || (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-gray-900">Permissão Necessária</h2>
+        <h2 className="text-xl font-semibold text-gray-900">PermissÃ£o NecessÃ¡ria</h2>
         <p className="text-gray-600 mt-2">
-          Você não tem permissão para {requiredPermission.action} em {requiredPermission.resource}.
+          VocÃª nÃ£o tem permissÃ£o para {requiredPermission.action} em {requiredPermission.resource}.
         </p>
       </div>
     )
@@ -582,7 +582,7 @@ export const UserMenuExample: React.FC = () => {
                 Meu Perfil
               </a>
               <a href="/settings" className="dropdown-item">
-                Configurações
+                ConfiguraÃ§Ãµes
               </a>
               <div className="dropdown-divider" />
               <button
@@ -600,23 +600,23 @@ export const UserMenuExample: React.FC = () => {
   )
 }
 
-// ===== 6. EXEMPLO DE USO DE PERMISSÕES =====
+// ===== 6. EXEMPLO DE USO DE PERMISSÃ•ES =====
 export const PermissionExample: React.FC = () => {
   const { hasAccess } = usePermission('products', 'create')
   const { user, canAccess } = useAuth()
 
   return (
     <div className="space-y-4">
-      <h3>Exemplos de Verificação de Permissões</h3>
+      <h3>Exemplos de VerificaÃ§Ã£o de PermissÃµes</h3>
       
       <div className="space-y-2">
-        <p>Pode criar produtos: {hasAccess ? '✅' : '❌'}</p>
-        <p>Pode editar usuários: {canAccess('users', 'update') ? '✅' : '❌'}</p>
-        <p>É administrador: {PermissionUtils.hasRole(user, 'admin') ? '✅' : '❌'}</p>
-        <p>Tem role manager ou superior: {PermissionUtils.hasHigherRole(user, 'manager') ? '✅' : '❌'}</p>
+        <p>Pode criar produtos: {hasAccess ? 'âœ…' : 'âŒ'}</p>
+        <p>Pode editar usuÃ¡rios: {canAccess('users', 'update') ? 'âœ…' : 'âŒ'}</p>
+        <p>Ã‰ administrador: {PermissionUtils.hasRole(user, 'admin') ? 'âœ…' : 'âŒ'}</p>
+        <p>Tem role manager ou superior: {PermissionUtils.hasHigherRole(user, 'manager') ? 'âœ…' : 'âŒ'}</p>
       </div>
 
-      {/* Renderização condicional baseada em permissões */}
+      {/* RenderizaÃ§Ã£o condicional baseada em permissÃµes */}
       {canAccess('products', 'create') && (
         <button className="btn btn-primary">
           Criar Produto
@@ -625,7 +625,7 @@ export const PermissionExample: React.FC = () => {
 
       {canAccess('reports', 'export') && (
         <button className="btn btn-outline">
-          Exportar Relatórios
+          Exportar RelatÃ³rios
         </button>
       )}
     </div>
@@ -640,3 +640,4 @@ export default {
   UserMenuExample,
   PermissionExample,
 }
+

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -6,7 +6,7 @@ export async function POST(req: Request) {
 
     if (!to || !message) {
       return NextResponse.json(
-        { error: "Número e mensagem são obrigatórios" },
+        { error: "NÃºmero e mensagem sÃ£o obrigatÃ³rios" },
         { status: 400 }
       );
     }
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("❌ Erro API WhatsApp:", data);
+      console.error("âŒ Erro API WhatsApp:", data);
       return NextResponse.json({ error: data }, { status: 500 });
     }
 
@@ -39,3 +39,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+

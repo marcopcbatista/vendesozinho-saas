@@ -1,4 +1,4 @@
-import { Role, Permission } from '@/types/auth'
+﻿import { Role, Permission } from '@/types/auth'
 
 export interface RouteConfig {
   path: string
@@ -17,13 +17,13 @@ export const ROUTES: RouteConfig[] = [
     path: '/dashboard',
     requireAuth: true,
     allowedRoles: ['viewer', 'seller', 'manager', 'admin'],
-    description: 'Área principal do usuário'
+    description: 'Ãrea principal do usuÃ¡rio'
   },
   {
     path: '/admin',
     requireAuth: true,
     allowedRoles: ['admin'],
-    description: 'Área restrita de administração'
+    description: 'Ãrea restrita de administraÃ§Ã£o'
   }
 ]
 
@@ -43,3 +43,4 @@ export const CUSTOM_ROUTES: RouteConfig[] = [
     description: 'Rota personalizada'
   }
 ]
+

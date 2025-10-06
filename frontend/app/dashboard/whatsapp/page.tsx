@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -32,7 +32,7 @@ export default function WhatsAppPage() {
 
       <input
         type="text"
-        placeholder="Número do WhatsApp (ex: +5511999999999)"
+        placeholder="NÃºmero do WhatsApp (ex: +5511999999999)"
         value={to}
         onChange={(e) => setTo(e.target.value)}
         className="border p-2 rounded w-96"
@@ -61,3 +61,4 @@ export default function WhatsAppPage() {
     </div>
   );
 }
+

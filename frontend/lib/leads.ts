@@ -1,4 +1,4 @@
-// lib/leads.ts
+﻿// lib/leads.ts
 import { supabase } from './supabase-client'
 
 export async function saveLead(email: string) {
@@ -9,3 +9,4 @@ export async function saveLead(email: string) {
   if (error) throw new Error(error.message)
   return data
 }
+

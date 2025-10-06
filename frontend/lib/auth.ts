@@ -1,13 +1,13 @@
-import jwt from 'jsonwebtoken'
+﻿import jwt from 'jsonwebtoken'
 import { supabaseAdmin } from './supabase'
 import type { User } from './supabase'
 
-// Configurações JWT
+// ConfiguraÃ§Ãµes JWT
 const JWT_SECRET = process.env.JWT_SECRET
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d'
 
 if (!JWT_SECRET) {
-  throw new Error('JWT_SECRET não configurado no .env.local')
+  throw new Error('JWT_SECRET nÃ£o configurado no .env.local')
 }
 
 // Interface para dados do Google
@@ -32,21 +32,21 @@ export interface JWTPayload {
 }
 
 class AuthService {
-  // Verificar token Google usando fetch (sem dependência externa)
+  // Verificar token Google usando fetch (sem dependÃªncia externa)
   async verifyGoogleToken(token: string): Promise<GoogleUserData> {
     try {
       // Verificar token com endpoint do Google
       const response = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${token}`)
       
       if (!response.ok) {
-        throw new Error('Token Google inválido')
+        throw new Error('Token Google invÃ¡lido')
       }
 
       const payload = await response.json()
 
-      // Validar se é nosso app
+      // Validar se Ã© nosso app
       if (payload.aud !== process.env.GOOGLE_CLIENT_ID) {
-        throw new Error('Token não pertence a esta aplicação')
+        throw new Error('Token nÃ£o pertence a esta aplicaÃ§Ã£o')
       }
 
       // Validar dados essenciais
@@ -63,18 +63,18 @@ class AuthService {
       }
     } catch (error) {
       console.error('Erro ao verificar token Google:', error)
-      throw new Error('Token Google inválido ou expirado')
+      throw new Error('Token Google invÃ¡lido ou expirado')
     }
   }
 
-  // Criar ou buscar usuário
+  // Criar ou buscar usuÃ¡rio
   async findOrCreateUser(googleData: GoogleUserData): Promise<User> {
     if (!supabaseAdmin) {
-      throw new Error('supabaseAdmin não configurado')
+      throw new Error('supabaseAdmin nÃ£o configurado')
     }
 
     try {
-      // Buscar usuário existente por Google ID ou email
+      // Buscar usuÃ¡rio existente por Google ID ou email
       const { data: existingUser, error: findError } = await supabaseAdmin
         .from('users')
         .select('*')
@@ -82,18 +82,18 @@ class AuthService {
         .single()
 
       if (findError && findError.code !== 'PGRST116') {
-        console.error('Erro ao buscar usuário:', findError)
-        throw new Error('Erro ao verificar usuário existente')
+        console.error('Erro ao buscar usuÃ¡rio:', findError)
+        throw new Error('Erro ao verificar usuÃ¡rio existente')
       }
 
       if (existingUser) {
-        // Usuário existe - atualizar dados se necessário
+        // UsuÃ¡rio existe - atualizar dados se necessÃ¡rio
         const updates: any = {
           last_login: new Date().toISOString(),
           updated_at: new Date().toISOString()
         }
 
-        // Atualizar Google ID se não existir
+        // Atualizar Google ID se nÃ£o existir
         if (!existingUser.google_id && googleData.google_id) {
           updates.google_id = googleData.google_id
         }
@@ -116,14 +116,14 @@ class AuthService {
           .single()
 
         if (updateError) {
-          console.warn('Erro ao atualizar usuário:', updateError)
+          console.warn('Erro ao atualizar usuÃ¡rio:', updateError)
         }
 
-        console.log(`Usuário existente logado: ${existingUser.email}`)
+        console.log(`UsuÃ¡rio existente logado: ${existingUser.email}`)
         return updatedUser || existingUser
       }
 
-      // Criar novo usuário
+      // Criar novo usuÃ¡rio
       const newUserData = {
         google_id: googleData.google_id,
         email: googleData.email,
@@ -143,11 +143,11 @@ class AuthService {
         .single()
 
       if (createError) {
-        console.error('Erro ao criar usuário:', createError)
-        throw new Error('Não foi possível criar conta de usuário')
+        console.error('Erro ao criar usuÃ¡rio:', createError)
+        throw new Error('NÃ£o foi possÃ­vel criar conta de usuÃ¡rio')
       }
 
-      console.log(`Novo usuário criado: ${newUser.email} (ID: ${newUser.id})`)
+      console.log(`Novo usuÃ¡rio criado: ${newUser.email} (ID: ${newUser.id})`)
       
       // Trigger para webhook de boas-vindas
       this.sendWelcomeWebhook(newUser).catch(err => {
@@ -188,14 +188,14 @@ class AuthService {
     try {
       return jwt.verify(token, JWT_SECRET!) as JWTPayload
     } catch (error) {
-      throw new Error('Token JWT inválido ou expirado')
+      throw new Error('Token JWT invÃ¡lido ou expirado')
     }
   }
 
   // Refresh token
   async refreshToken(userId: string): Promise<string> {
     if (!supabaseAdmin) {
-      throw new Error('supabaseAdmin não configurado')
+      throw new Error('supabaseAdmin nÃ£o configurado')
     }
 
     try {
@@ -207,10 +207,10 @@ class AuthService {
         .single()
 
       if (error || !user) {
-        throw new Error('Usuário não encontrado ou inativo')
+        throw new Error('UsuÃ¡rio nÃ£o encontrado ou inativo')
       }
 
-      // Atualizar último acesso
+      // Atualizar Ãºltimo acesso
       await supabaseAdmin
         .from('users')
         .update({ 
@@ -222,14 +222,14 @@ class AuthService {
       return this.generateJWT(user)
     } catch (error) {
       console.error('Erro ao refresh token:', error)
-      throw new Error('Não foi possível renovar token')
+      throw new Error('NÃ£o foi possÃ­vel renovar token')
     }
   }
 
-  // Obter dados do usuário por ID
+  // Obter dados do usuÃ¡rio por ID
   async getUserById(userId: string): Promise<User & { trial_days_left?: number }> {
     if (!supabaseAdmin) {
-      throw new Error('supabaseAdmin não configurado')
+      throw new Error('supabaseAdmin nÃ£o configurado')
     }
 
     try {
@@ -240,7 +240,7 @@ class AuthService {
         .single()
 
       if (error || !user) {
-        throw new Error('Usuário não encontrado')
+        throw new Error('UsuÃ¡rio nÃ£o encontrado')
       }
 
       // Calcular dias restantes do trial
@@ -254,18 +254,18 @@ class AuthService {
 
       return userWithTrial
     } catch (error) {
-      console.error('Erro ao buscar usuário:', error)
+      console.error('Erro ao buscar usuÃ¡rio:', error)
       throw error
     }
   }
 
-  // Verificar permissões do usuário
+  // Verificar permissÃµes do usuÃ¡rio
   hasPermission(user: User, resource: string): boolean {
     if (!user.is_active) {
       return false
     }
 
-    // Lógica de permissões baseada na assinatura
+    // LÃ³gica de permissÃµes baseada na assinatura
     const permissions = {
       trial: ['basic_leads', 'basic_dashboard', 'whatsapp_bot'],
       active: ['basic_leads', 'basic_dashboard', 'whatsapp_bot', 'advanced_features', 'api_access'],
@@ -288,7 +288,7 @@ class AuthService {
   // Desativar conta
   async deactivateUser(userId: string, reason: string = 'user_request'): Promise<{ success: boolean }> {
     if (!supabaseAdmin) {
-      throw new Error('supabaseAdmin não configurado')
+      throw new Error('supabaseAdmin nÃ£o configurado')
     }
 
     try {
@@ -304,11 +304,11 @@ class AuthService {
         throw error
       }
 
-      console.log(`Usuário ${userId} desativado. Motivo: ${reason}`)
+      console.log(`UsuÃ¡rio ${userId} desativado. Motivo: ${reason}`)
       return { success: true }
     } catch (error) {
-      console.error('Erro ao desativar usuário:', error)
-      throw new Error('Não foi possível desativar conta')
+      console.error('Erro ao desativar usuÃ¡rio:', error)
+      throw new Error('NÃ£o foi possÃ­vel desativar conta')
     }
   }
 
@@ -350,7 +350,7 @@ class AuthService {
     }
   ): Promise<void> {
     if (!supabaseAdmin) {
-      throw new Error('supabaseAdmin não configurado')
+      throw new Error('supabaseAdmin nÃ£o configurado')
     }
 
     try {
@@ -359,7 +359,7 @@ class AuthService {
         updated_at: new Date().toISOString()
       }
 
-      // Se não é mais trial, remover data de fim do trial
+      // Se nÃ£o Ã© mais trial, remover data de fim do trial
       if (status !== 'trial') {
         updates.trial_ends_at = null
       }
@@ -373,7 +373,7 @@ class AuthService {
         throw error
       }
 
-      // Se há dados de assinatura, criar/atualizar na tabela subscriptions
+      // Se hÃ¡ dados de assinatura, criar/atualizar na tabela subscriptions
       if (subscriptionData && subscriptionData.stripe_subscription_id) {
         const { error: subError } = await supabaseAdmin
           .from('subscriptions')
@@ -381,7 +381,7 @@ class AuthService {
             user_id: userId,
             stripe_customer_id: subscriptionData.stripe_customer_id!,
             stripe_subscription_id: subscriptionData.stripe_subscription_id,
-            stripe_price_id: 'price_default', // Você pode mapear isso baseado no plano
+            stripe_price_id: 'price_default', // VocÃª pode mapear isso baseado no plano
             plan_name: status === 'premium' ? 'Premium' : 'Professional',
             status: status === 'active' || status === 'premium' ? 'active' : 'inactive',
             current_period_start: new Date().toISOString(),
@@ -396,7 +396,7 @@ class AuthService {
         }
       }
 
-      console.log(`Status de assinatura atualizado para usuário ${userId}: ${status}`)
+      console.log(`Status de assinatura atualizado para usuÃ¡rio ${userId}: ${status}`)
     } catch (error) {
       console.error('Erro ao atualizar status de assinatura:', error)
       throw error
@@ -406,7 +406,7 @@ class AuthService {
 
 export const authService = new AuthService()
 
-// Middleware helper para verificar autenticação em API routes
+// Middleware helper para verificar autenticaÃ§Ã£o em API routes
 export function withAuth<T extends any[]>(
   handler: (req: any, res: any, user: User, ...args: T) => Promise<any>
 ) {
@@ -415,7 +415,7 @@ export function withAuth<T extends any[]>(
       const authHeader = req.headers.authorization
       
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ error: 'Token não fornecido' })
+        return res.status(401).json({ error: 'Token nÃ£o fornecido' })
       }
 
       const token = authHeader.substring(7)
@@ -428,8 +428,9 @@ export function withAuth<T extends any[]>(
 
       return handler(req, res, user, ...args)
     } catch (error) {
-      console.error('Erro na autenticação:', error)
-      return res.status(401).json({ error: 'Token inválido' })
+      console.error('Erro na autenticaÃ§Ã£o:', error)
+      return res.status(401).json({ error: 'Token invÃ¡lido' })
     }
   }
 }
+

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+﻿import { NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 
 export async function POST(req: Request) {
@@ -18,3 +18,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message }, { status: 400 })
   }
 }
+

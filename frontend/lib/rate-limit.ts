@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+﻿import { NextRequest } from 'next/server'
 
 interface RateLimitOptions {
   interval: number // Time window in milliseconds
@@ -233,3 +233,4 @@ export const apiRateLimit = rateLimit({
   interval: 60 * 1000, // 1 minute
   uniqueTokenPerInterval: 1000
 })
+

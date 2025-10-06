@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js"
+Ôªøimport { createClient } from "@supabase/supabase-js"
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -17,10 +17,10 @@ export type RegisterData = {
 export async function register(data: RegisterData) {
   try {
     if (data.passwordConfirmation && data.password !== data.passwordConfirmation) {
-      return { success: false, message: "As senhas n„o conferem." }
+      return { success: false, message: "As senhas n√£o conferem." }
     }
     if (data.acceptTerms === false) {
-      return { success: false, message: "… necess·rio aceitar os termos." }
+      return { success: false, message: "√â necess√°rio aceitar os termos." }
     }
     const { data: user, error } = await supabase.auth.signUp({
       email: data.email,
@@ -28,7 +28,7 @@ export async function register(data: RegisterData) {
       options: { data: { name: data.name, phone: data.phone } }
     })
     if (error) return { success: false, message: error.message }
-    return { success: true, message: "Usu·rio registrado com sucesso!", user }
+    return { success: true, message: "Usu√°rio registrado com sucesso!", user }
   } catch (err: any) {
     return { success: false, message: err.message || "Erro ao registrar" }
   }
@@ -53,3 +53,4 @@ export async function logout() {
     return { success: false, message: err.message || "Erro ao fazer logout" }
   }
 }
+

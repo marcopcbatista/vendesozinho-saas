@@ -1,42 +1,42 @@
-// app/templates/page.tsx
+﻿// app/templates/page.tsx
 import { Metadata } from 'next'
 import { FileText, Crown, Zap, Mail, Facebook, Instagram, Video, FileEdit } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Templates | vendeSozinho',
-  description: 'Templates profissionais de copy para diferentes tipos de conteúdo',
+  description: 'Templates profissionais de copy para diferentes tipos de conteÃºdo',
 }
 
 const templates = [
   {
     id: 1,
-    name: 'Página de Vendas Clássica',
-    description: 'Template completo para páginas de vendas de alto impacto',
-    category: 'Páginas',
+    name: 'PÃ¡gina de Vendas ClÃ¡ssica',
+    description: 'Template completo para pÃ¡ginas de vendas de alto impacto',
+    category: 'PÃ¡ginas',
     icon: FileText,
     isPremium: false,
     conversions: '34%',
-    sections: ['Headline', 'Problema', 'Solução', 'Benefícios', 'Prova Social', 'CTA']
+    sections: ['Headline', 'Problema', 'SoluÃ§Ã£o', 'BenefÃ­cios', 'Prova Social', 'CTA']
   },
   {
     id: 2,
     name: 'Email Sequence de Vendas',
-    description: 'Sequência de 7 emails para nutrir e converter leads',
+    description: 'SequÃªncia de 7 emails para nutrir e converter leads',
     category: 'Email',
     icon: Mail,
     isPremium: true,
     conversions: '28%',
-    sections: ['Relacionamento', 'Educação', 'Objeções', 'Urgência', 'Fechamento']
+    sections: ['Relacionamento', 'EducaÃ§Ã£o', 'ObjeÃ§Ãµes', 'UrgÃªncia', 'Fechamento']
   },
   {
     id: 3,
-    name: 'Anúncio Facebook Ads',
-    description: 'Copy otimizado para anúncios no Facebook e Instagram',
+    name: 'AnÃºncio Facebook Ads',
+    description: 'Copy otimizado para anÃºncios no Facebook e Instagram',
     category: 'Social Media',
     icon: Facebook,
     isPremium: false,
     conversions: '12%',
-    sections: ['Hook', 'Problema', 'Solução', 'CTA']
+    sections: ['Hook', 'Problema', 'SoluÃ§Ã£o', 'CTA']
   },
   {
     id: 4,
@@ -51,26 +51,26 @@ const templates = [
   {
     id: 5,
     name: 'VSL (Video Sales Letter)',
-    description: 'Script completo para vídeos de vendas de alta conversão',
-    category: 'Vídeo',
+    description: 'Script completo para vÃ­deos de vendas de alta conversÃ£o',
+    category: 'VÃ­deo',
     icon: Video,
     isPremium: true,
     conversions: '42%',
-    sections: ['Abertura', 'História', 'Demonstração', 'Oferta', 'Fechamento']
+    sections: ['Abertura', 'HistÃ³ria', 'DemonstraÃ§Ã£o', 'Oferta', 'Fechamento']
   },
   {
     id: 6,
     name: 'Carta de Vendas Direta',
     description: 'Formato de carta tradicional adaptado para digital',
-    category: 'Páginas',
+    category: 'PÃ¡ginas',
     icon: FileEdit,
     isPremium: true,
     conversions: '31%',
-    sections: ['Saudação', 'Problema', 'História', 'Solução', 'Garantia', 'CTA']
+    sections: ['SaudaÃ§Ã£o', 'Problema', 'HistÃ³ria', 'SoluÃ§Ã£o', 'Garantia', 'CTA']
   }
 ]
 
-const categories = ['Todos', 'Páginas', 'Email', 'Social Media', 'Vídeo']
+const categories = ['Todos', 'PÃ¡ginas', 'Email', 'Social Media', 'VÃ­deo']
 
 export default function TemplatesPage() {
   return (
@@ -84,7 +84,7 @@ export default function TemplatesPage() {
             </div>
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Templates de Copy</h1>
-              <p className="text-gray-600">Modelos testados e aprovados para diferentes tipos de conteúdo</p>
+              <p className="text-gray-600">Modelos testados e aprovados para diferentes tipos de conteÃºdo</p>
             </div>
           </div>
 
@@ -125,7 +125,7 @@ export default function TemplatesPage() {
                 )}
               </div>
 
-              {/* Conteúdo */}
+              {/* ConteÃºdo */}
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 {template.name}
               </h3>
@@ -133,18 +133,18 @@ export default function TemplatesPage() {
                 {template.description}
               </p>
 
-              {/* Estatísticas */}
+              {/* EstatÃ­sticas */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2 text-green-600">
                   <Zap className="w-4 h-4" />
-                  <span className="text-sm font-medium">{template.conversions} conversão</span>
+                  <span className="text-sm font-medium">{template.conversions} conversÃ£o</span>
                 </div>
-                <span className="text-xs text-gray-500">{template.sections.length} seções</span>
+                <span className="text-xs text-gray-500">{template.sections.length} seÃ§Ãµes</span>
               </div>
 
-              {/* Seções */}
+              {/* SeÃ§Ãµes */}
               <div className="mb-6">
-                <p className="text-xs text-gray-500 mb-2">Seções incluídas:</p>
+                <p className="text-xs text-gray-500 mb-2">SeÃ§Ãµes incluÃ­das:</p>
                 <div className="flex flex-wrap gap-1">
                   {template.sections.slice(0, 3).map((section, index) => (
                     <span key={index} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
@@ -159,7 +159,7 @@ export default function TemplatesPage() {
                 </div>
               </div>
 
-              {/* Botão de Ação */}
+              {/* BotÃ£o de AÃ§Ã£o */}
               <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200">
                 {template.isPremium ? 'Usar Template Premium' : 'Usar Template'}
               </button>
@@ -175,7 +175,7 @@ export default function TemplatesPage() {
           </div>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Acesse mais de 50 templates premium testados por especialistas em copywriting, 
-            incluindo VSLs, sequences de email avançadas e muito mais.
+            incluindo VSLs, sequences de email avanÃ§adas e muito mais.
           </p>
           <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-8 py-3 rounded-lg font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-200">
             Upgrade para Premium
@@ -185,3 +185,4 @@ export default function TemplatesPage() {
     </div>
   )
 }
+

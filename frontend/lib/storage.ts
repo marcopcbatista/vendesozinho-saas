@@ -1,4 +1,4 @@
-// File storage abstraction - supports local storage and cloud providers
+﻿// File storage abstraction - supports local storage and cloud providers
 
 interface StorageProvider {
   uploadFile(file: File, path: string): Promise<string>
@@ -439,3 +439,4 @@ export const getFileInfo = storageService.getFileInfo.bind(storageService)
 // Export classes and interfaces
 export { StorageService, LocalStorageProvider, S3StorageProvider, CloudinaryProvider }
 export type { StorageProvider, UploadOptions }
+

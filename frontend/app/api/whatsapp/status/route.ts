@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 
 export async function GET() {
@@ -8,3 +8,4 @@ service: "WhatsApp",
 timestamp: new Date().toISOString(),
 });
 }
+

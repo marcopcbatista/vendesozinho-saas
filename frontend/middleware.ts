@@ -1,13 +1,13 @@
-import { NextResponse } from 'next/server'
+﻿import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
 
-// ===== CONFIGURAÇÕES =====
+// ===== CONFIGURAÃ‡Ã•ES =====
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'your-secret-key-change-in-production'
 )
 
-// Rotas que não requerem autenticação
+// Rotas que nÃ£o requerem autenticaÃ§Ã£o
 const PUBLIC_ROUTES = [
   '/',
   '/login',
@@ -31,7 +31,7 @@ const PUBLIC_ROUTES = [
   '/sw.js',
 ]
 
-// Rotas que requerem autenticação
+// Rotas que requerem autenticaÃ§Ã£o
 const PROTECTED_ROUTES = [
   '/dashboard',
   '/products',
@@ -58,7 +58,7 @@ const ADMIN_ROUTES = [
   '/api/settings/system',
 ]
 
-// Rotas por role específico
+// Rotas por role especÃ­fico
 const ROLE_ROUTES: Record<string, string[]> = {
   admin: [
     ...ADMIN_ROUTES,
@@ -103,7 +103,7 @@ interface RouteConfig {
   redirectTo?: string
 }
 
-// ===== UTILITÁRIOS =====
+// ===== UTILITÃRIOS =====
 function isPublicRoute(pathname: string): boolean {
   return PUBLIC_ROUTES.some(route => {
     if (route === '/') return pathname === '/'
@@ -155,14 +155,14 @@ function hasPermission(
 function createRedirectResponse(request: NextRequest, redirectPath: string) {
   const redirectUrl = new URL(redirectPath, request.url)
   
-  // Adicionar parâmetro de redirect para retornar após login
+  // Adicionar parÃ¢metro de redirect para retornar apÃ³s login
   if (redirectPath === '/login' && request.nextUrl.pathname !== '/login') {
     redirectUrl.searchParams.set('redirect', request.nextUrl.pathname + request.nextUrl.search)
   }
   
   const response = NextResponse.redirect(redirectUrl)
   
-  // Limpar tokens inválidos
+  // Limpar tokens invÃ¡lidos
   if (redirectPath === '/login') {
     response.cookies.delete('auth_token')
     response.cookies.delete('refresh_token')
@@ -195,7 +195,7 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const method = request.method
 
-  // Ignorar arquivos estáticos e rotas do Next.js
+  // Ignorar arquivos estÃ¡ticos e rotas do Next.js
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api/_next') ||
@@ -204,9 +204,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // ===== 1. VERIFICAR SE É ROTA PÚBLICA =====
+  // ===== 1. VERIFICAR SE Ã‰ ROTA PÃšBLICA =====
   if (isPublicRoute(pathname)) {
-    // Para rotas de auth, redirecionar se já estiver logado
+    // Para rotas de auth, redirecionar se jÃ¡ estiver logado
     if (['/login', '/register'].includes(pathname)) {
       const token = request.cookies.get('auth_token')?.value
       
@@ -237,14 +237,14 @@ export async function middleware(request: NextRequest) {
     return createRedirectResponse(request, '/login')
   }
 
-  // ===== 3. VERIFICAR EXPIRAÇÃO DO TOKEN =====
+  // ===== 3. VERIFICAR EXPIRAÃ‡ÃƒO DO TOKEN =====
   const now = Math.floor(Date.now() / 1000)
   if (user.exp < now) {
     logAccess(request, user, 'ACCESS_DENIED_EXPIRED_TOKEN', false)
     return createRedirectResponse(request, '/login')
   }
 
-  // ===== 4. VERIFICAÇÕES DE ROLE E PERMISSÕES =====
+  // ===== 4. VERIFICAÃ‡Ã•ES DE ROLE E PERMISSÃ•ES =====
   
   // Verificar rotas administrativas
   if (isAdminRoute(pathname)) {
@@ -254,7 +254,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Verificar rotas específicas por role
+  // Verificar rotas especÃ­ficas por role
   const requiredRole = requiresSpecificRole(pathname)
   if (requiredRole && user.role !== requiredRole) {
     // Verificar hierarquia de roles
@@ -268,9 +268,9 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // ===== 5. VERIFICAÇÕES ESPECÍFICAS PARA API =====
+  // ===== 5. VERIFICAÃ‡Ã•ES ESPECÃFICAS PARA API =====
   if (pathname.startsWith('/api/')) {
-    // Verificar métodos HTTP restritos
+    // Verificar mÃ©todos HTTP restritos
     const restrictedMethods = ['POST', 'PUT', 'PATCH', 'DELETE']
     if (restrictedMethods.includes(method)) {
       const resource = pathname.split('/')[2] // /api/products -> products
@@ -282,7 +282,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.json(
           { 
             error: 'Forbidden',
-            message: `Você não tem permissão para ${action} em ${resource}`,
+            message: `VocÃª nÃ£o tem permissÃ£o para ${action} em ${resource}`,
             code: 'INSUFFICIENT_PERMISSIONS'
           },
           { status: 403 }
@@ -290,22 +290,22 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    // Rate limiting básico para APIs
+    // Rate limiting bÃ¡sico para APIs
     const rateLimitKey = `${user.userId}:${pathname}`
-    // Aqui você implementaria um sistema de rate limiting
-    // usando Redis ou similar em produção
+    // Aqui vocÃª implementaria um sistema de rate limiting
+    // usando Redis ou similar em produÃ§Ã£o
   }
 
-  // ===== 6. ADICIONAR HEADERS DE USUÁRIO =====
+  // ===== 6. ADICIONAR HEADERS DE USUÃRIO =====
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-user-id', user.userId)
   requestHeaders.set('x-user-email', user.email)
   requestHeaders.set('x-user-role', user.role)
   requestHeaders.set('x-user-permissions', JSON.stringify(user.permissions))
 
-  // ===== 7. VERIFICAÇÕES DE SEGURANÇA ADICIONAIS =====
+  // ===== 7. VERIFICAÃ‡Ã•ES DE SEGURANÃ‡A ADICIONAIS =====
   
-  // Verificar se o usuário ainda está ativo (opcional - requer consulta ao DB)
+  // Verificar se o usuÃ¡rio ainda estÃ¡ ativo (opcional - requer consulta ao DB)
   // if (pathname.startsWith('/api/') && shouldCheckUserStatus()) {
   //   const userActive = await checkUserActiveStatus(user.userId)
   //   if (!userActive) {
@@ -313,7 +313,7 @@ export async function middleware(request: NextRequest) {
   //   }
   // }
 
-  // Verificar IP whitelist para rotas sensíveis (opcional)
+  // Verificar IP whitelist para rotas sensÃ­veis (opcional)
   if (isAdminRoute(pathname)) {
     const clientIP = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
     const allowedIPs = process.env.ADMIN_ALLOWED_IPS?.split(',') || []
@@ -338,13 +338,13 @@ export async function middleware(request: NextRequest) {
     },
   })
 
-  // Headers de segurança
+  // Headers de seguranÃ§a
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('X-Frame-Options', 'DENY')
   response.headers.set('X-XSS-Protection', '1; mode=block')
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
 
-  // CORS para APIs (ajustar conforme necessário)
+  // CORS para APIs (ajustar conforme necessÃ¡rio)
   if (pathname.startsWith('/api/')) {
     response.headers.set('Access-Control-Allow-Origin', process.env.FRONTEND_URL || '*')
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
@@ -352,7 +352,7 @@ export async function middleware(request: NextRequest) {
     response.headers.set('Access-Control-Allow-Credentials', 'true')
   }
 
-  // Atualizar última atividade do usuário (opcional)
+  // Atualizar Ãºltima atividade do usuÃ¡rio (opcional)
   response.cookies.set('last_activity', now.toString(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -364,7 +364,7 @@ export async function middleware(request: NextRequest) {
   return response
 }
 
-// ===== CONFIGURAÇÃO DO MATCHER =====
+// ===== CONFIGURAÃ‡ÃƒO DO MATCHER =====
 export const config = {
   matcher: [
     /*
@@ -378,10 +378,10 @@ export const config = {
   ],
 }
 
-// ===== FUNÇÕES AUXILIARES PARA EXTENSÃO =====
+// ===== FUNÃ‡Ã•ES AUXILIARES PARA EXTENSÃƒO =====
 
 /**
- * Verificar se deve consultar status do usuário no banco
+ * Verificar se deve consultar status do usuÃ¡rio no banco
  * (implementar conforme necessidade)
  */
 function shouldCheckUserStatus(): boolean {
@@ -389,11 +389,11 @@ function shouldCheckUserStatus(): boolean {
 }
 
 /**
- * Consultar status ativo do usuário no banco de dados
+ * Consultar status ativo do usuÃ¡rio no banco de dados
  * (implementar com seu ORM/database)
  */
 async function checkUserActiveStatus(userId: string): Promise<boolean> {
-  // Exemplo de implementação:
+  // Exemplo de implementaÃ§Ã£o:
   // const user = await prisma.user.findUnique({
   //   where: { id: userId },
   //   select: { isActive: true }
@@ -405,7 +405,7 @@ async function checkUserActiveStatus(userId: string): Promise<boolean> {
 
 /**
  * Sistema de rate limiting
- * (implementar com Redis ou similar em produção)
+ * (implementar com Redis ou similar em produÃ§Ã£o)
  */
 class RateLimiter {
   private static requests = new Map<string, { count: number; resetTime: number }>()
@@ -428,7 +428,7 @@ class RateLimiter {
   }
 }
 
-// ===== EXPORTAR UTILITÁRIOS PARA USO EM OUTROS LUGARES =====
+// ===== EXPORTAR UTILITÃRIOS PARA USO EM OUTROS LUGARES =====
 export { 
   verifyToken, 
   hasPermission, 
@@ -437,3 +437,4 @@ export {
   isAdminRoute,
   RateLimiter
 }
+

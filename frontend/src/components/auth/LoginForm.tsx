@@ -1,4 +1,4 @@
-'use client';
+ï»¿'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -61,7 +61,7 @@ export function LoginForm() {
           <Input
             type="password"
             label="Senha"
-            placeholder="••••••••"
+            placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -81,3 +81,4 @@ export function LoginForm() {
     </Card>
   );
 }
+

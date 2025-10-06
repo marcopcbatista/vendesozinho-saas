@@ -1,4 +1,4 @@
-'use client';
+ï»¿'use client';
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
@@ -38,7 +38,7 @@ export function TextGenerator() {
     { value: 'email_marketing', label: 'Email Marketing' },
     { value: 'social_media', label: 'Redes Sociais' },
     { value: 'landing_page', label: 'Landing Page' },
-    { value: 'product_description', label: 'Descrição de Produto' },
+    { value: 'product_description', label: 'DescriÃ§Ã£o de Produto' },
   ];
 
   return (
@@ -58,7 +58,7 @@ export function TextGenerator() {
               </select>
             </div>
             <div>
-              <label className="text-sm font-medium mb-2 block">Descreva seu produto/serviço</label>
+              <label className="text-sm font-medium mb-2 block">Descreva seu produto/serviÃ§o</label>
               <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder="Ex: Curso online de marketing digital..." className="flex min-h-[120px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
             </div>
             <Button type="submit" className="w-full" isLoading={isLoading}>
@@ -85,3 +85,4 @@ export function TextGenerator() {
     </div>
   );
 }
+

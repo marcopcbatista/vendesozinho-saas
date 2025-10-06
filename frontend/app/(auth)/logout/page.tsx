@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { logout } from "@/services/auth"
@@ -18,3 +18,4 @@ export default function LogoutPage() {
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -8,19 +8,19 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
-// ✅ Esquema de validação com Zod
+// âœ… Esquema de validaÃ§Ã£o com Zod
 const registerSchema = z.object({
   name: z.string().min(3, "O nome precisa ter pelo menos 3 caracteres"),
-  email: z.string().email("Email inválido"),
+  email: z.string().email("Email invÃ¡lido"),
   phone: z.string().optional(),
   password: z.string().min(6, "A senha precisa ter pelo menos 6 caracteres"),
   passwordConfirmation: z.string().min(6, "Confirme sua senha"),
   acceptTerms: z.literal(true, {
-    errorMap: () => ({ message: "Você deve aceitar os termos de uso" }),
+    errorMap: () => ({ message: "VocÃª deve aceitar os termos de uso" }),
   }),
 }).refine((data) => data.password === data.passwordConfirmation, {
   path: ["passwordConfirmation"],
-  message: "As senhas não coincidem",
+  message: "As senhas nÃ£o coincidem",
 })
 
 type FormData = z.infer<typeof registerSchema>
@@ -157,3 +157,4 @@ export default function RegisterPage() {
     </main>
   )
 }
+

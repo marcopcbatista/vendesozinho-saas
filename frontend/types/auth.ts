@@ -1,4 +1,4 @@
-// ===== TIPOS DE AUTENTICAÇÃO =====
+﻿// ===== TIPOS DE AUTENTICAÃ‡ÃƒO =====
 
 // Roles do sistema com hierarquia
 export type UserRole = 'admin' | 'manager' | 'seller' | 'viewer'
@@ -26,10 +26,10 @@ export type SystemResource =
   | 'promotions'
   | 'integrations'
 
-// Ações disponíveis por recurso
+// AÃ§Ãµes disponÃ­veis por recurso
 export type ResourceAction = 'create' | 'read' | 'update' | 'delete' | 'export' | 'import'
 
-// Permissões padrão por role
+// PermissÃµes padrÃ£o por role
 export const DEFAULT_PERMISSIONS: Record<UserRole, Array<{resource: SystemResource, actions: ResourceAction[]}>> = {
   viewer: [
     { resource: 'dashboard', actions: ['read'] },
@@ -77,7 +77,7 @@ export const DEFAULT_PERMISSIONS: Record<UserRole, Array<{resource: SystemResour
 // Status de conta
 export type AccountStatus = 'active' | 'inactive' | 'suspended' | 'pending'
 
-// Preferências de notificação
+// PreferÃªncias de notificaÃ§Ã£o
 export interface NotificationPreferences {
   email: boolean
   push: boolean
@@ -91,7 +91,7 @@ export interface NotificationPreferences {
   securityAlerts: boolean
 }
 
-// Configurações do dashboard
+// ConfiguraÃ§Ãµes do dashboard
 export interface DashboardSettings {
   defaultView: 'overview' | 'sales' | 'products' | 'customers' | 'analytics'
   chartType: 'bar' | 'line' | 'pie' | 'area'
@@ -102,7 +102,7 @@ export interface DashboardSettings {
   refreshInterval: 30 | 60 | 300 | 600 // segundos
 }
 
-// Configurações de aparência
+// ConfiguraÃ§Ãµes de aparÃªncia
 export interface AppearanceSettings {
   theme: 'light' | 'dark' | 'auto'
   colorScheme: 'blue' | 'green' | 'purple' | 'orange' | 'red'
@@ -114,7 +114,7 @@ export interface AppearanceSettings {
   currency: 'BRL' | 'USD' | 'EUR'
 }
 
-// Configurações de segurança
+// ConfiguraÃ§Ãµes de seguranÃ§a
 export interface SecuritySettings {
   twoFactorEnabled: boolean
   sessionTimeout: 15 | 30 | 60 | 120 // minutos
@@ -124,7 +124,7 @@ export interface SecuritySettings {
   ipWhitelist: string[]
 }
 
-// Configurações completas do usuário
+// ConfiguraÃ§Ãµes completas do usuÃ¡rio
 export interface UserSettings {
   notifications: NotificationPreferences
   dashboard: DashboardSettings
@@ -145,7 +145,7 @@ export interface AuditData {
   lastLoginUserAgent?: string
 }
 
-// Informações de perfil social
+// InformaÃ§Ãµes de perfil social
 export interface SocialProfile {
   provider: 'google' | 'facebook' | 'linkedin' | 'microsoft'
   providerId: string
@@ -153,7 +153,7 @@ export interface SocialProfile {
   connectedAt: string
 }
 
-// Token de sessão
+// Token de sessÃ£o
 export interface SessionToken {
   token: string
   refreshToken: string
@@ -166,7 +166,7 @@ export interface SessionToken {
   }
 }
 
-// Histórico de login
+// HistÃ³rico de login
 export interface LoginHistory {
   id: string
   timestamp: string
@@ -177,7 +177,7 @@ export interface LoginHistory {
   failureReason?: string
 }
 
-// Configurações de API
+// ConfiguraÃ§Ãµes de API
 export interface ApiConfiguration {
   baseURL: string
   timeout: number
@@ -187,22 +187,22 @@ export interface ApiConfiguration {
   tokenRefreshThreshold: number
 }
 
-// Contexto de autenticação estendido
+// Contexto de autenticaÃ§Ã£o estendido
 export interface AuthContextExtended {
-  // Dados básicos
+  // Dados bÃ¡sicos
   user: User | null
   isLoading: boolean
   isAuthenticated: boolean
   
-  // Sessão
+  // SessÃ£o
   session: SessionToken | null
   sessionExpiry: Date | null
   
-  // Histórico e auditoria
+  // HistÃ³rico e auditoria
   loginHistory: LoginHistory[]
   lastActivity: Date | null
   
-  // Configurações
+  // ConfiguraÃ§Ãµes
   settings: UserSettings
   
   // Funcionalidades
@@ -212,7 +212,7 @@ export interface AuthContextExtended {
   isAdmin: () => boolean
   canAccess: (resource: SystemResource, action?: ResourceAction) => boolean
   
-  // Ações
+  // AÃ§Ãµes
   login: (credentials: LoginCredentials) => Promise<void>
   logout: () => Promise<void>
   refreshToken: () => Promise<void>
@@ -221,7 +221,7 @@ export interface AuthContextExtended {
   changePassword: (data: ChangePasswordData) => Promise<void>
 }
 
-// Eventos de autenticação
+// Eventos de autenticaÃ§Ã£o
 export type AuthEvent = 
   | 'login'
   | 'logout'
@@ -237,7 +237,7 @@ export interface AuthEventListener {
   callback: (data?: any) => void
 }
 
-// Validação de formulários
+// ValidaÃ§Ã£o de formulÃ¡rios
 export interface ValidationRule {
   required?: boolean
   minLength?: number
@@ -250,7 +250,7 @@ export interface FormValidation {
   [key: string]: ValidationRule
 }
 
-// Configurações de validação para auth
+// ConfiguraÃ§Ãµes de validaÃ§Ã£o para auth
 export const AUTH_VALIDATION: Record<string, FormValidation> = {
   login: {
     email: {
@@ -280,7 +280,7 @@ export const AUTH_VALIDATION: Record<string, FormValidation> = {
     passwordConfirmation: {
       required: true,
       custom: (value: string, formData: any) => 
-        value === formData.password || 'As senhas não coincidem'
+        value === formData.password || 'As senhas nÃ£o coincidem'
     },
     phone: {
       pattern: /^\(\d{2}\)\s\d{4,5}-\d{4}$/
@@ -301,26 +301,26 @@ export const AUTH_VALIDATION: Record<string, FormValidation> = {
     newPasswordConfirmation: {
       required: true,
       custom: (value: string, formData: any) => 
-        value === formData.newPassword || 'As senhas não coincidem'
+        value === formData.newPassword || 'As senhas nÃ£o coincidem'
     }
   }
 }
 
-// Mensagens de erro padrão
+// Mensagens de erro padrÃ£o
 export const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'invalid-credentials': 'Email ou senha incorretos',
-  'user-not-found': 'Usuário não encontrado',
+  'user-not-found': 'UsuÃ¡rio nÃ£o encontrado',
   'user-disabled': 'Conta desativada. Entre em contato com o suporte',
   'too-many-attempts': 'Muitas tentativas de login. Tente novamente mais tarde',
-  'email-already-exists': 'Este email já está sendo usado',
-  'weak-password': 'A senha deve ter pelo menos 8 caracteres com letras maiúsculas, minúsculas, números e símbolos',
-  'invalid-token': 'Token inválido ou expirado',
-  'session-expired': 'Sua sessão expirou. Faça login novamente',
-  'network-error': 'Erro de conexão. Verifique sua internet',
+  'email-already-exists': 'Este email jÃ¡ estÃ¡ sendo usado',
+  'weak-password': 'A senha deve ter pelo menos 8 caracteres com letras maiÃºsculas, minÃºsculas, nÃºmeros e sÃ­mbolos',
+  'invalid-token': 'Token invÃ¡lido ou expirado',
+  'session-expired': 'Sua sessÃ£o expirou. FaÃ§a login novamente',
+  'network-error': 'Erro de conexÃ£o. Verifique sua internet',
   'server-error': 'Erro interno do servidor. Tente novamente mais tarde',
-  'unauthorized': 'Você não tem permissão para executar esta ação',
+  'unauthorized': 'VocÃª nÃ£o tem permissÃ£o para executar esta aÃ§Ã£o',
   'forbidden': 'Acesso negado',
-  'validation-error': 'Dados inválidos. Verifique os campos e tente novamente'
+  'validation-error': 'Dados invÃ¡lidos. Verifique os campos e tente novamente'
 }
 
 // Re-export dos tipos principais do hook
@@ -336,7 +336,7 @@ export type {
   AuthError
 } from '../hooks/use-auth'
 
-// Utilitários para trabalhar com permissões
+// UtilitÃ¡rios para trabalhar com permissÃµes
 export class PermissionUtils {
   static hasRole(user: User | null, role: UserRole): boolean {
     return user?.role === role
@@ -366,7 +366,7 @@ export class PermissionUtils {
     // Admin tem acesso total
     if (user.role === 'admin') return true
     
-    // Verificar permissões específicas
+    // Verificar permissÃµes especÃ­ficas
     return this.hasPermission(user, resource, action)
   }
 
@@ -379,7 +379,7 @@ export class PermissionUtils {
   }
 }
 
-// Utilitários para validação
+// UtilitÃ¡rios para validaÃ§Ã£o
 export class ValidationUtils {
   static validateEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -394,15 +394,15 @@ export class ValidationUtils {
     }
     
     if (!/[a-z]/.test(password)) {
-      errors.push('A senha deve conter pelo menos uma letra minúscula')
+      errors.push('A senha deve conter pelo menos uma letra minÃºscula')
     }
     
     if (!/[A-Z]/.test(password)) {
-      errors.push('A senha deve conter pelo menos uma letra maiúscula')
+      errors.push('A senha deve conter pelo menos uma letra maiÃºscula')
     }
     
     if (!/\d/.test(password)) {
-      errors.push('A senha deve conter pelo menos um número')
+      errors.push('A senha deve conter pelo menos um nÃºmero')
     }
     
     if (!/[@$!%*?&]/.test(password)) {
@@ -437,7 +437,7 @@ export class ValidationUtils {
   }
 }
 
-// Constantes de configuração
+// Constantes de configuraÃ§Ã£o
 export const AUTH_CONFIG = {
   // Timeouts
   SESSION_TIMEOUT: 30 * 60 * 1000, // 30 minutos
@@ -448,7 +448,7 @@ export const AUTH_CONFIG = {
   MAX_LOGIN_ATTEMPTS: 5,
   LOCKOUT_DURATION: 15 * 60 * 1000, // 15 minutos
   
-  // Validação
+  // ValidaÃ§Ã£o
   MIN_PASSWORD_LENGTH: 8,
   MAX_PASSWORD_LENGTH: 128,
   MAX_NAME_LENGTH: 100,
@@ -476,7 +476,7 @@ export interface AuthGuardProps {
   redirectTo?: string
 }
 
-// Tipos para formulários de auth
+// Tipos para formulÃ¡rios de auth
 export interface LoginFormData extends LoginCredentials {
   rememberMe: boolean
 }
@@ -490,7 +490,7 @@ export interface ResetPasswordFormData extends ResetPasswordData {}
 
 export interface ChangePasswordFormData extends ChangePasswordData {}
 
-// Estados de loading específicos
+// Estados de loading especÃ­ficos
 export interface AuthLoadingStates {
   login: boolean
   register: boolean
@@ -501,7 +501,7 @@ export interface AuthLoadingStates {
   refreshToken: boolean
 }
 
-// Métricas de autenticação (para analytics)
+// MÃ©tricas de autenticaÃ§Ã£o (para analytics)
 export interface AuthMetrics {
   totalUsers: number
   activeUsers: number
@@ -514,3 +514,4 @@ export interface AuthMetrics {
   deviceBreakdown: Record<string, number>
   locationBreakdown: Record<string, number>
 }
+
