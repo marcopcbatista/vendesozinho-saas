@@ -6,7 +6,7 @@
           VendeSozinho
         </h1>
         <p className="text-xl text-gray-600 mb-8">
-          Plataforma SaaS para geração de conteúdo inteligente
+          Plataforma SaaS para geracao de conteudo inteligente
         </p>
         <div className="flex gap-4 justify-center">
           
