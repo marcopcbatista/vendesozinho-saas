@@ -1,12 +1,12 @@
 ﻿import "./globals.css";
 import React from "react";
 
-// ✅ Fonte local ou padrão do sistema — nada de next/font/google
+// ✅ Fonte local ou padrão do sistema - nada de next/font/google
 const inter = { className: "font-sans" };
 
 export const metadata = {
   title: "vendeSozinho",
-  description: "Gere textos de vendas com IA — versão offline",
+  description: "Gere textos de vendas com IA - versão offline",
 };
 
 export default function RootLayout({
