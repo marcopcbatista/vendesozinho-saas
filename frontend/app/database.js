@@ -1,9 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+﻿import { createClient } from '@supabase/supabase-js';
 import { logger } from './logger.js';
 
-// Verificar variáveis de ambiente obrigatórias
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// Verificar variÃ¡veis de ambiente obrigatÃ³rias
+const supabaseUrl = globalThis.process?.env.SUPABASE_URL;
+const supabaseServiceKey = globalThis.process?.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseServiceKey) {
   logger.error('Missing Supabase configuration', {
@@ -47,8 +47,8 @@ export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
 });
 
 /**
- * Testar conexão com Supabase
- * @returns {Promise<boolean>} True se conectado, false caso contrário
+ * Testar conexÃ£o com Supabase
+ * @returns {Promise<boolean>} True se conectado, false caso contrÃ¡rio
  */
 export const testSupabaseConnection = async () => {
   try {
@@ -90,7 +90,7 @@ export const tableExists = async (tableName) => {
 };
 
 /**
- * Executar migração/setup inicial das tabelas
+ * Executar migraÃ§Ã£o/setup inicial das tabelas
  */
 export const setupDatabase = async () => {
   try {
@@ -106,7 +106,7 @@ export const setupDatabase = async () => {
     
     logger.info('Database table status:', tableStatus);
     
-    // Se alguma tabela crítica não existir, log warning
+    // Se alguma tabela crÃ­tica nÃ£o existir, log warning
     const missingTables = tables.filter(table => !tableStatus[table]);
     if (missingTables.length > 0) {
       logger.warn('Missing database tables', { missing: missingTables });
@@ -123,10 +123,10 @@ export const setupDatabase = async () => {
 };
 
 /**
- * Funções utilitárias para queries comuns
+ * FunÃ§Ãµes utilitÃ¡rias para queries comuns
  */
 export const queries = {
-  // Usuários
+  // UsuÃ¡rios
   async findUserById(userId) {
     const { data, error } = await supabase
       .from('users')
@@ -172,7 +172,7 @@ export const queries = {
     return data;
   },
 
-  // Gerações de IA
+  // GeraÃ§Ãµes de IA
   async saveGeneration(generationData) {
     const { data, error } = await supabase
       .from('generations')
@@ -233,8 +233,8 @@ export const queries = {
   }
 };
 
-// Inicializar conexão ao importar
-if (process.env.NODE_ENV === 'development') {
+// Inicializar conexÃ£o ao importar
+if (globalThis.process?.env.NODE_ENV === 'development') {
   testSupabaseConnection().catch(error => {
     logger.error('Initial Supabase connection failed', { error: error.message });
   });

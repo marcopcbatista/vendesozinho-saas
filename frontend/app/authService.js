@@ -1,13 +1,13 @@
-import { OAuth2Client } from 'google-auth-library';
+﻿import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import { supabase, queries } from '../config/database.js';
 import { logger } from '../config/logger.js';
 
 class AuthService {
   constructor() {
-    this.googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-    this.jwtSecret = process.env.JWT_SECRET;
-    this.jwtExpiry = process.env.JWT_EXPIRES_IN || '7d';
+    this.googleClient = new OAuth2Client(globalThis.process?.env.GOOGLE_CLIENT_ID);
+    this.jwtSecret = globalThis.process?.env.JWT_SECRET;
+    this.jwtExpiry = globalThis.process?.env.JWT_EXPIRES_IN || '7d';
     
     if (!this.jwtSecret) {
       throw new Error('JWT_SECRET environment variable is required');
@@ -17,17 +17,17 @@ class AuthService {
   /**
    * Verificar token do Google OAuth
    * @param {string} token - Token ID do Google
-   * @returns {Object} Dados do usuário do Google
+   * @returns {Object} Dados do usuÃ¡rio do Google
    */
   async verifyGoogleToken(token) {
     try {
-      if (!process.env.GOOGLE_CLIENT_ID) {
-        throw new Error('GOOGLE_CLIENT_ID não configurado');
+      if (!globalThis.process?.env.GOOGLE_CLIENT_ID) {
+        throw new Error('GOOGLE_CLIENT_ID nÃ£o configurado');
       }
 
       const ticket = await this.googleClient.verifyIdToken({
         idToken: token,
-        audience: process.env.GOOGLE_CLIENT_ID,
+        audience: globalThis.process?.env.GOOGLE_CLIENT_ID,
       });
 
       const payload = ticket.getPayload();
@@ -47,18 +47,18 @@ class AuthService {
       };
     } catch (error) {
       logger.error('Google token verification failed', { error: error.message });
-      throw new Error('Token Google inválido ou expirado');
+      throw new Error('Token Google invÃ¡lido ou expirado');
     }
   }
 
   /**
-   * Encontrar ou criar usuário baseado nos dados do Google
-   * @param {Object} googleData - Dados do usuário do Google
-   * @returns {Object} Usuário criado ou encontrado
+   * Encontrar ou criar usuÃ¡rio baseado nos dados do Google
+   * @param {Object} googleData - Dados do usuÃ¡rio do Google
+   * @returns {Object} UsuÃ¡rio criado ou encontrado
    */
   async findOrCreateUser(googleData) {
     try {
-      // Buscar usuário existente por Google ID ou email
+      // Buscar usuÃ¡rio existente por Google ID ou email
       const { data: existingUser, error: findError } = await supabase
         .from('users')
         .select('*')
@@ -67,15 +67,15 @@ class AuthService {
 
       if (findError && findError.code !== 'PGRST116') {
         logger.error('User lookup failed', { error: findError.message });
-        throw new Error('Erro ao verificar usuário existente');
+        throw new Error('Erro ao verificar usuÃ¡rio existente');
       }
 
       if (existingUser) {
-        // Usuario existe - atualizar dados se necessário
+        // Usuario existe - atualizar dados se necessÃ¡rio
         return await this.updateExistingUser(existingUser, googleData);
       }
 
-      // Criar novo usuário
+      // Criar novo usuÃ¡rio
       return await this.createNewUser(googleData);
 
     } catch (error) {
@@ -85,7 +85,7 @@ class AuthService {
   }
 
   /**
-   * Atualizar usuário existente
+   * Atualizar usuÃ¡rio existente
    * @private
    */
   async updateExistingUser(existingUser, googleData) {
@@ -93,12 +93,12 @@ class AuthService {
       last_login: new Date().toISOString()
     };
 
-    // Atualizar Google ID se não existir
+    // Atualizar Google ID se nÃ£o existir
     if (!existingUser.google_id && googleData.google_id) {
       updates.google_id = googleData.google_id;
     }
 
-    // Atualizar foto se não existir ou mudou
+    // Atualizar foto se nÃ£o existir ou mudou
     if (!existingUser.picture || existingUser.picture !== googleData.picture) {
       updates.picture = googleData.picture;
     }
@@ -131,7 +131,7 @@ class AuthService {
   }
 
   /**
-   * Criar novo usuário
+   * Criar novo usuÃ¡rio
    * @private
    */
   async createNewUser(googleData) {
@@ -164,7 +164,7 @@ class AuthService {
         email: googleData.email, 
         error: createError.message 
       });
-      throw new Error('Não foi possível criar conta de usuário');
+      throw new Error('NÃ£o foi possÃ­vel criar conta de usuÃ¡rio');
     }
 
     logger.info('New user created', { 
@@ -172,7 +172,7 @@ class AuthService {
       email: newUser.email 
     });
     
-    // Enviar email de boas-vindas assíncronamente
+    // Enviar email de boas-vindas assÃ­ncronamente
     this.sendWelcomeEmail(newUser).catch(err => {
       logger.warn('Welcome email failed', { 
         userId: newUser.id, 
@@ -185,7 +185,7 @@ class AuthService {
 
   /**
    * Gerar token JWT
-   * @param {Object} user - Dados do usuário
+   * @param {Object} user - Dados do usuÃ¡rio
    * @returns {string} Token JWT
    */
   generateJWT(user) {
@@ -204,7 +204,7 @@ class AuthService {
       expiresIn: this.jwtExpiry,
       issuer: 'vendesozinho',
       subject: user.id.toString(),
-      audience: process.env.FRONTEND_URL || 'localhost'
+      audience: globalThis.process?.env.FRONTEND_URL || 'localhost'
     };
 
     return jwt.sign(payload, this.jwtSecret, options);
@@ -219,13 +219,13 @@ class AuthService {
     try {
       return jwt.verify(token, this.jwtSecret);
     } catch (error) {
-      throw new Error('Token JWT inválido ou expirado');
+      throw new Error('Token JWT invÃ¡lido ou expirado');
     }
   }
 
   /**
    * Renovar token JWT
-   * @param {string} userId - ID do usuário
+   * @param {string} userId - ID do usuÃ¡rio
    * @returns {string} Novo token JWT
    */
   async refreshToken(userId) {
@@ -233,30 +233,30 @@ class AuthService {
       const user = await this.getUserById(userId);
       
       if (!user.is_active) {
-        throw new Error('Usuário inativo');
+        throw new Error('UsuÃ¡rio inativo');
       }
 
-      // Atualizar último acesso
+      // Atualizar Ãºltimo acesso
       await this.updateLastLogin(userId);
 
       return this.generateJWT(user);
     } catch (error) {
       logger.error('Token refresh failed', { userId, error: error.message });
-      throw new Error('Não foi possível renovar token');
+      throw new Error('NÃ£o foi possÃ­vel renovar token');
     }
   }
 
   /**
-   * Obter usuário por ID
-   * @param {string} userId - ID do usuário
-   * @returns {Object} Dados do usuário
+   * Obter usuÃ¡rio por ID
+   * @param {string} userId - ID do usuÃ¡rio
+   * @returns {Object} Dados do usuÃ¡rio
    */
   async getUserById(userId) {
     try {
       const user = await queries.findUserById(userId);
       
       if (!user) {
-        throw new Error('Usuário não encontrado');
+        throw new Error('UsuÃ¡rio nÃ£o encontrado');
       }
 
       // Calcular dias restantes do trial
@@ -276,9 +276,9 @@ class AuthService {
   }
 
   /**
-   * Obter usuário por email
-   * @param {string} email - Email do usuário
-   * @returns {Object|null} Dados do usuário ou null
+   * Obter usuÃ¡rio por email
+   * @param {string} email - Email do usuÃ¡rio
+   * @returns {Object|null} Dados do usuÃ¡rio ou null
    */
   async getUserByEmail(email) {
     try {
@@ -290,10 +290,10 @@ class AuthService {
   }
 
   /**
-   * Atualizar usuário
-   * @param {string} userId - ID do usuário
+   * Atualizar usuÃ¡rio
+   * @param {string} userId - ID do usuÃ¡rio
    * @param {Object} updates - Dados para atualizar
-   * @returns {Object} Usuário atualizado
+   * @returns {Object} UsuÃ¡rio atualizado
    */
   async updateUser(userId, updates) {
     try {
@@ -305,8 +305,8 @@ class AuthService {
   }
 
   /**
-   * Atualizar último login
-   * @param {string} userId - ID do usuário
+   * Atualizar Ãºltimo login
+   * @param {string} userId - ID do usuÃ¡rio
    */
   async updateLastLogin(userId) {
     try {
@@ -318,13 +318,13 @@ class AuthService {
         .eq('id', userId);
     } catch (error) {
       logger.warn('Update last login failed', { userId, error: error.message });
-      // Não falhar por erro no update de last_login
+      // NÃ£o falhar por erro no update de last_login
     }
   }
 
   /**
    * Registrar logout
-   * @param {string} userId - ID do usuário
+   * @param {string} userId - ID do usuÃ¡rio
    */
   async logout(userId) {
     try {
@@ -339,14 +339,14 @@ class AuthService {
       return { success: true };
     } catch (error) {
       logger.warn('Logout recording failed', { userId, error: error.message });
-      return { success: true }; // Não falhar logout por erro no banco
+      return { success: true }; // NÃ£o falhar logout por erro no banco
     }
   }
 
   /**
-   * Desativar conta do usuário
-   * @param {string} userId - ID do usuário
-   * @param {string} reason - Motivo da desativação
+   * Desativar conta do usuÃ¡rio
+   * @param {string} userId - ID do usuÃ¡rio
+   * @param {string} reason - Motivo da desativaÃ§Ã£o
    */
   async deactivateUser(userId, reason = 'user_request') {
     try {
@@ -367,15 +367,15 @@ class AuthService {
       return { success: true };
     } catch (error) {
       logger.error('Account deactivation failed', { userId, error: error.message });
-      throw new Error('Não foi possível desativar conta');
+      throw new Error('NÃ£o foi possÃ­vel desativar conta');
     }
   }
 
   /**
-   * Verificar permissões do usuário
-   * @param {Object} user - Dados do usuário
-   * @param {string} permission - Permissão a verificar
-   * @returns {boolean} Se tem permissão
+   * Verificar permissÃµes do usuÃ¡rio
+   * @param {Object} user - Dados do usuÃ¡rio
+   * @param {string} permission - PermissÃ£o a verificar
+   * @returns {boolean} Se tem permissÃ£o
    */
   hasPermission(user, permission) {
     if (!user.is_active) return false;
@@ -412,8 +412,8 @@ class AuthService {
   }
 
   /**
-   * Verificar se usuário pode usar recurso
-   * @param {Object} user - Dados do usuário
+   * Verificar se usuÃ¡rio pode usar recurso
+   * @param {Object} user - Dados do usuÃ¡rio
    * @param {string} feature - Recurso a verificar
    * @returns {Object} Status de acesso
    */
@@ -431,7 +431,7 @@ class AuthService {
       return { 
         allowed: false, 
         reason: 'trial_expired',
-        message: 'Período de teste expirou' 
+        message: 'PerÃ­odo de teste expirou' 
       };
     }
 
@@ -464,7 +464,7 @@ class AuthService {
 
   /**
    * Enviar email de boas-vindas
-   * @param {Object} user - Dados do usuário
+   * @param {Object} user - Dados do usuÃ¡rio
    */
   async sendWelcomeEmail(user) {
     try {
@@ -476,10 +476,10 @@ class AuthService {
       // TODO: Implementar com provedor de email real
       // Exemplo: SendGrid, Mailgun, AWS SES, etc.
       
-      // Webhook opcional para notificações
-      if (process.env.WEBHOOK_URL) {
+      // Webhook opcional para notificaÃ§Ãµes
+      if (globalThis.process?.env.WEBHOOK_URL) {
         const axios = await import('axios');
-        await axios.default.post(process.env.WEBHOOK_URL, {
+        await axios.default.post(globalThis.process?.env.WEBHOOK_URL, {
           event: 'user_registered',
           user: {
             id: user.id,
@@ -498,15 +498,15 @@ class AuthService {
   }
 
   /**
-   * Validar dados do usuário
+   * Validar dados do usuÃ¡rio
    * @param {Object} userData - Dados a validar
-   * @returns {Object} Resultado da validação
+   * @returns {Object} Resultado da validaÃ§Ã£o
    */
   validateUserData(userData) {
     const errors = [];
 
     if (!userData.email || !/\S+@\S+\.\S+/.test(userData.email)) {
-      errors.push('Email inválido');
+      errors.push('Email invÃ¡lido');
     }
 
     if (!userData.name || userData.name.trim().length < 2) {
@@ -520,19 +520,19 @@ class AuthService {
   }
 
   /**
-   * Obter estatísticas do usuário
-   * @param {string} userId - ID do usuário
-   * @returns {Object} Estatísticas
+   * Obter estatÃ­sticas do usuÃ¡rio
+   * @param {string} userId - ID do usuÃ¡rio
+   * @returns {Object} EstatÃ­sticas
    */
   async getUserStats(userId) {
     try {
-      // Total de gerações
+      // Total de geraÃ§Ãµes
       const { count: totalGenerations } = await supabase
         .from('generations')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', userId);
 
-      // Gerações este mês
+      // GeraÃ§Ãµes este mÃªs
       const startOfMonth = new Date();
       startOfMonth.setDate(1);
       startOfMonth.setHours(0, 0, 0, 0);

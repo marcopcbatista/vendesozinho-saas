@@ -16,13 +16,13 @@ export const ROUTES: RouteConfig[] = [
   {
     path: '/dashboard',
     requireAuth: true,
-    allowedRoles: ['viewer', 'seller', 'manager', 'admin'],
+    allowedRoles: ['VIEWER', 'SELLER', 'MANAGER', 'ADMIN'],
     description: 'Ãrea principal do usuÃ¡rio'
   },
   {
     path: '/admin',
     requireAuth: true,
-    allowedRoles: ['admin'],
+    allowedRoles: ['ADMIN'],
     description: 'Ãrea restrita de administraÃ§Ã£o'
   }
 ]
@@ -32,9 +32,9 @@ export const CUSTOM_ROUTES: RouteConfig[] = [
   {
     path: '/minha-rota-especial',
     requireAuth: true,
-    allowedRoles: ['manager', 'admin'],
+    allowedRoles: ['MANAGER', 'ADMIN'],
     requiredPermissions: [
-      { resource: 'custom', action: 'read' }
+      { name: 'custom-read', resource: 'custom', action: 'read' }
     ],
     rateLimit: {
       requests: 100,
@@ -43,4 +43,6 @@ export const CUSTOM_ROUTES: RouteConfig[] = [
     description: 'Rota personalizada'
   }
 ]
+
+
 

@@ -1,4 +1,4 @@
-﻿// app/history/page.tsx
+// app/history/page.tsx
 import { Metadata } from 'next'
 import { History, Search, Filter, Calendar, Star, Copy, Download, Trash2, Eye } from 'lucide-react'
 
@@ -76,7 +76,7 @@ const generatedTexts = [
       conversions: 23,
       rate: '4.1%'
     },
-    preview: 'A verdade que ninguÃ©m te conta sobre empreendedorismo... ðŸ’¡'
+    preview: 'A verdade que ninguÃ©m te conta sobre empreendedorismo... ðŸ'¡'
   }
 ]
 

@@ -1,4 +1,5 @@
-﻿import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+﻿import type { RegisterData } from '@/types/auth';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import { useCallback, useEffect } from 'react'
@@ -52,15 +53,7 @@ export interface LoginCredentials {
   rememberMe?: boolean
 }
 
-export interface RegisterData {
-  name: string
-  email: string
-  password: string
-  passwordConfirmation: string
-  phone?: string
-  department?: string
-  acceptTerms: boolean
-}
+export type { RegisterData } from '@/types/auth'
 
 export interface ResetPasswordData {
   email: string
@@ -548,4 +541,9 @@ export const useUser = () => {
       .slice(0, 2) || 'U',
   }
 }
+
+
+
+
+
 

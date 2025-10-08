@@ -16,7 +16,6 @@ export default function HomePage() {
         setSlotsRemaining(prev => prev - 1)
       }
     }, 45000)
-
     return () => clearInterval(interval)
   }, [slotsRemaining])
 
@@ -30,99 +29,141 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800">
+      <header className="fixed top-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg z-50 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl">📱</span>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">vendeSozinho</span>
+            <span className="text-3xl">📱</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              vendeSozinho
+            </span>
           </Link>
           
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Recursos</a>
-            <a href="#results" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Resultados</a>
-            <Link href="/pricing" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Preços</Link>
+          <nav className="hidden md:flex items-center space-x-6">
+            <a href="#features" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition">
+              Recursos
+            </a>
+            <a href="#results" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition">
+              Resultados
+            </a>
+            <Link href="/pricing" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition">
+              Preços
+            </Link>
             
-            <button onClick={toggleTheme} className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+            <button 
+              onClick={toggleTheme} 
+              className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              title={theme === 'light' ? 'Modo Escuro' : 'Modo Claro'}
+            >
               {theme === 'light' ? '🌙' : '☀️'}
             </button>
             
-            <Link href="/generator" className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
-              Começar Teste
+            <Link href="/login" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition">
+              Login
+            </Link>
+            
+            <Link href="/register" className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all">
+              Começar Grátis
             </Link>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-full mb-6">
+      <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="inline-flex items-center space-x-3 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full">
                 <span className="text-2xl">🚀</span>
-                <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Mais de 5.000 empresas transformadas</span>
+                <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">
+                  +5.000 empresas transformadas
+                </span>
               </div>
 
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                Transforme seu WhatsApp em uma{' '}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  máquina de vendas
-                </span>{' '}
-                automatizada
+              <h1 className="text-5xl lg:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight">
+                Gere textos de vendas com{' '}
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Inteligência Artificial
+                </span>
               </h1>
 
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-                Atenda centenas de clientes simultaneamente, feche 3x mais vendas e economize milhares com nossa plataforma de automação inteligente.
+              <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                Crie copies, emails, posts e landing pages que convertem em segundos. Aumente suas vendas em até 300%.
               </p>
 
-              <div className="grid grid-cols-4 gap-4 mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
-                  { number: '30s', label: 'Tempo resposta' },
-                  { number: '15x', label: 'ROI médio' },
-                  { number: '24/7', label: 'Atendimento' },
-                  { number: '300%', label: 'Conversões' }
+                  { icon: '⚡', number: '3x', label: 'Mais rápido' },
+                  { icon: '💰', number: '300%', label: 'Conversão' },
+                  { icon: '🎯', number: '15+', label: 'Templates' },
+                  { icon: '🔥', number: '24/7', label: 'Disponível' }
                 ].map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stat.number}</div>
+                  <div key={stat.label} className="text-center p-4 rounded-xl bg-white dark:bg-gray-800 shadow-lg">
+                    <div className="text-3xl mb-2">{stat.icon}</div>
+                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stat.number}</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</div>
                   </div>
                 ))}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/generator" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition text-center">
-                  Começar Teste Grátis →
+                <Link 
+                  href="/register" 
+                  className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                >
+                  Começar Grátis Agora
+                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
-                <Link href="/pricing" className="px-8 py-4 border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition text-center">
-                  Ver Demonstração
+                <Link 
+                  href="/generator" 
+                  className="px-8 py-4 border-2 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white text-lg rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 text-center"
+                >
+                  Ver Demo
                 </Link>
+              </div>
+
+              <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center">
+                  <span className="text-yellow-500 mr-1">⭐⭐⭐⭐⭐</span>
+                  <span>4.9/5 (2.341 avaliações)</span>
+                </div>
+                <div>✓ Sem cartão de crédito</div>
               </div>
             </div>
 
             {/* Dashboard Preview */}
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-8 rounded-2xl">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6">
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20"></div>
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-bold text-gray-900 dark:text-white">vendeSozinho Dashboard</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h3>
                   <div className="flex items-center space-x-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Online • 247 leads hoje</span>
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Online</span>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   {[
-                    { label: 'Conversões hoje', value: '89', change: '+23%', positive: true },
-                    { label: 'Tempo resposta', value: '24s', change: '-67%', positive: true },
-                    { label: 'Taxa conversão', value: '34%', change: '+156%', positive: true }
-                  ].map((metric) => (
-                    <div key={metric.label} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    { label: 'Textos gerados hoje', value: '247', trend: '+23%', positive: true },
+                    { label: 'Taxa de conversão', value: '34%', trend: '+12%', positive: true },
+                    { label: 'Tempo economizado', value: '18h', trend: '+156%', positive: true }
+                  ].map((metric, idx) => (
+                    <div 
+                      key={metric.label} 
+                      className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 transform hover:scale-105 transition-all"
+                     style={{ animationDelay: `${idx * 0.1}s` }}
+
+                    >
                       <div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</div>
-                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300 mb-1">{metric.label}</div>
+                        <div className="text-3xl font-bold text-gray-900 dark:text-white">{metric.value}</div>
                       </div>
-                      <span className={\	ext-sm font-medium \\}>
-                        {metric.change}
+                      <span className={`text-lg font-bold px-3 py-1 rounded-lg ${metric.trend === "↑" ? "text-green-600 bg-green-50" : "text-red-600 bg-red-50"}` }>
+                        {metric.trend}
                       </span>
                     </div>
                   ))}
@@ -133,88 +174,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Problems Section */}
-      <section id="problems" className="py-20 px-6 bg-gray-50 dark:bg-gray-800/50">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Você reconhece estes problemas?
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
-              Milhares de empresas perdem vendas todos os dias por não conseguirem atender adequadamente
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: '📱', title: 'Leads Perdidos', desc: 'Clientes desistem porque demoram 4-8h para resposta', impact: '-60% conversões' },
-              { icon: '💼', title: 'Equipe Sobrecarregada', desc: '80% do tempo em perguntas repetitivas', impact: 'R$ 8k/mês/vendedor' },
-              { icon: '🌙', title: 'Vendas Perdidas', desc: '45% dos clientes mandam mensagem fora do horário', impact: '-45% oportunidades' },
-              { icon: '📉', title: 'Falta de Controle', desc: 'Sem visibilidade do funil ou métricas', impact: 'Decisões cegas' }
-            ].map((problem) => (
-              <div key={problem.title} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                <div className="text-4xl mb-4">{problem.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{problem.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{problem.desc}</p>
-                <div className="text-sm">
-                  <span className="text-gray-500 dark:text-gray-400">Impacto: </span>
-                  <span className="font-bold text-red-600 dark:text-red-400">{problem.impact}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
-      <section id="features" className="py-20 px-6">
-        <div className="container mx-auto max-w-6xl">
+      <section id="features" className="py-24 px-6 bg-white dark:bg-gray-900">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Como Nossa Plataforma Resolve
+            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Recursos Poderosos
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Tecnologia avançada que transforma seu WhatsApp profissionalmente
+              Tudo que você precisa para vender mais com IA
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: '🚀',
-                title: 'Automação Inteligente',
-                features: ['Respostas 24/7', 'Fluxos com IA', 'Qualificação automática', 'Agendamentos'],
-                result: '80% menos tempo repetitivo'
+                icon: '🤖',
+                title: 'IA Avançada',
+                description: 'GPT-4 treinada especificamente para copywriting e vendas de alta conversão',
+                features: ['15+ templates prontos', 'Personalização total', 'Múltiplos idiomas']
               },
               {
-                icon: '💼',
-                title: 'Profissionalização',
-                features: ['Múltiplos atendentes', 'Templates otimizados', 'Histórico unificado', 'Relatórios detalhados'],
-                result: 'Equipe 3x mais produtiva'
+                icon: '⚡',
+                title: 'Geração Rápida',
+                description: 'Crie textos profissionais em segundos, não em horas',
+                features: ['Resultado instantâneo', 'Múltiplas variações', 'Edição em tempo real']
               },
               {
                 icon: '📊',
-                title: 'Gestão Completa',
-                features: ['Dashboard real-time', 'Funil visual', 'WhatsApp API', 'Integrações CRM'],
-                result: 'Controle total baseado em dados'
+                title: 'Analytics',
+                description: 'Acompanhe métricas e otimize seus textos baseado em dados reais',
+                features: ['Dashboard completo', 'Histórico ilimitado', 'Relatórios detalhados']
               }
             ].map((feature) => (
-              <div key={feature.title} className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
-                <div className="text-5xl mb-4">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{feature.title}</h3>
-                <ul className="space-y-2 mb-6">
+              <div 
+                key={feature.title}
+                className="group p-8 rounded-2xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{feature.icon}</div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">{feature.description}</p>
+                <ul className="space-y-2">
                   {feature.features.map((item) => (
-                    <li key={item} className="flex items-center text-gray-600 dark:text-gray-300">
-                      <span className="mr-2">✓</span>
+                    <li key={item} className="flex items-center text-gray-700 dark:text-gray-400">
+                      <span className="text-green-500 mr-2">✓</span>
                       {item}
                     </li>
                   ))}
                 </ul>
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                    📊 Resultado: {feature.result}
-                  </span>
-                </div>
               </div>
             ))}
           </div>
@@ -222,108 +229,95 @@ export default function HomePage() {
       </section>
 
       {/* Results Section */}
-      <section id="results" className="py-20 px-6 bg-gray-50 dark:bg-gray-800/50">
-        <div className="container mx-auto max-w-6xl">
+      <section id="results" className="py-24 px-6 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Resultados Comprovados
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Dados reais de 5.000+ empresas
+              Números reais de clientes reais
             </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { stat: '300%', label: 'Aumento conversão', detail: 'De 8% para 25%' },
-              { stat: '80%', label: 'Redução tempo', detail: '4h para 30s' },
-              { stat: '250%', label: 'Crescimento vendas', detail: '+R$ 85k/mês' },
-              { stat: '15x', label: 'ROI médio', detail: 'Retorno em 30 dias' }
-            ].map((item) => (
-              <div key={item.label} className="text-center">
-                <div className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">{item.stat}</div>
-                <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{item.label}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">{item.detail}</div>
+              { number: '5.000+', label: 'Empresas', sublabel: 'Transformadas' },
+              { number: '300%', label: 'Conversão', sublabel: 'Aumento médio' },
+              { number: '10min', label: 'Economia', sublabel: 'Por texto' },
+              { number: '4.9/5', label: 'Avaliação', sublabel: '2.341 reviews' }
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-8 rounded-2xl bg-white dark:bg-gray-900 shadow-lg hover:shadow-2xl transition-all">
+                <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-xl font-semibold text-gray-900 dark:text-white mb-1">{stat.label}</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">{stat.sublabel}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Urgency Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-12 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">🔥 Oferta Especial - Primeiros 100 Clientes</h2>
-            <div className="text-6xl font-bold mb-4">50% OFF</div>
-            <p className="text-2xl mb-6">nos primeiros 3 meses</p>
-            <div className="flex justify-center gap-4 mb-8">
-              <span className="text-3xl line-through opacity-75">R$ 297/mês</span>
-              <span className="text-4xl font-bold">R$ 148/mês</span>
-            </div>
-            <div className="bg-white/20 backdrop-blur rounded-lg p-6 mb-6">
-              <h3 className="text-2xl font-bold mb-4">Bônus Inclusos (R$ 5.500)</h3>
-              <ul className="space-y-2 text-left max-w-md mx-auto">
-                <li>✅ Configuração completa (R$ 1.500)</li>
-                <li>✅ Treinamento personalizado (R$ 2.000)</li>
-                <li>✅ Suporte premium 60 dias (R$ 1.200)</li>
-                <li>✅ Templates alta conversão (R$ 800)</li>
-              </ul>
-            </div>
-            <div className="text-xl font-bold">
-              Restam apenas <span className="text-3xl">{slotsRemaining}</span> vagas
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Final */}
-      <section className="py-20 px-6 bg-gray-900 dark:bg-black">
+      {/* CTA Section */}
+      <section className="py-24 px-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Pronto Para Triplicar Suas Vendas?
+          <h2 className="text-5xl font-bold text-white mb-6">
+            Comece Grátis Hoje
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Junte-se a 5.000+ empresas que transformaram seus resultados
+          <p className="text-2xl text-blue-100 mb-8">
+            Sem cartão de crédito. Cancele quando quiser.
           </p>
-
-          <div className="grid md:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto">
-            {['Teste 14 dias grátis', 'Configuração inclusa', 'Suporte premium', 'Garantia 60 dias'].map((item) => (
-              <div key={item} className="flex items-center justify-center text-gray-300">
-                <span className="mr-2">✅</span>
-                {item}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/generator" className="px-12 py-4 bg-blue-600 text-white text-lg rounded-lg font-bold hover:bg-blue-700 transition">
-              Começar Teste Gratuito
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <Link 
+              href="/register" 
+              className="px-12 py-5 bg-white text-blue-600 text-xl rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all"
+            >
+              Criar Conta Grátis
             </Link>
-            <Link href="/pricing" className="px-12 py-4 border-2 border-white text-white text-lg rounded-lg font-bold hover:bg-white hover:text-gray-900 transition">
+            <Link 
+              href="/pricing" 
+              className="px-12 py-5 border-2 border-white text-white text-xl rounded-xl font-bold hover:bg-white/10 transition-all"
+            >
               Ver Planos
             </Link>
           </div>
 
-          <div className="mt-8 p-4 bg-white/10 rounded-lg inline-block">
-            <span className="text-gray-300">🛡️ Sem Riscos: Garantia total de 60 dias</span>
+          <div className="flex flex-wrap justify-center gap-6 text-white text-sm">
+            <div className="flex items-center">✓ 14 dias grátis</div>
+            <div className="flex items-center">✓ Suporte prioritário</div>
+            <div className="flex items-center">✓ Garantia 30 dias</div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+      <footer className="py-12 px-6 bg-gray-900 dark:bg-black border-t border-gray-800">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
-          <span className="text-gray-600 dark:text-gray-400">
-            © {new Date().getFullYear()} vendeSozinho - Todos os direitos reservados
-          </span>
-          <nav className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/pricing" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">Preços</Link>
-            <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">Termos</a>
-            <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">Privacidade</a>
+          <div className="flex items-center space-x-2 mb-4 md:mb-0">
+            <span className="text-2xl">📱</span>
+            <span className="text-xl font-bold text-white">vendeSozinho</span>
+          </div>
+          
+          <nav className="flex gap-8">
+            <Link href="/pricing" className="text-gray-400 hover:text-white transition">Preços</Link>
+            <Link href="/dashboard" className="text-gray-400 hover:text-white transition">Dashboard</Link>
+            <a href="#" className="text-gray-400 hover:text-white transition">Suporte</a>
           </nav>
+          
+          <div className="text-gray-500 text-sm mt-4 md:mt-0">
+            © {new Date().getFullYear()} vendeSozinho. Todos os direitos reservados.
+          </div>
         </div>
       </footer>
     </div>
   )
 }
+
+
+
+
+
+
+

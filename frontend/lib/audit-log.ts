@@ -335,7 +335,7 @@ export const businessLog = {
 }
 
 // Export main function and utilities
-export { AuditLogEntry, AuditLogConfig }
+export type { AuditLogEntry, AuditLogConfig }
 
 // Cleanup on process exit
 if (typeof process !== 'undefined') {
@@ -350,4 +350,5 @@ if (typeof process !== 'undefined') {
     }
   })
 }
+
 

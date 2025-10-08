@@ -9,7 +9,7 @@ const JWT_SECRET = new TextEncoder().encode(
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
 
   try {
@@ -143,4 +143,5 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   return POST(request)
 }
+
 

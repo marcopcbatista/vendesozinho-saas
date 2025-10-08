@@ -34,7 +34,7 @@ const updatePasswordSchema = z.object({
 // GET - Get current user info
 export async function GET(request: NextRequest) {
   const startTime = Date.now()
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
 
   try {
@@ -161,7 +161,7 @@ export async function GET(request: NextRequest) {
 // PUT - Update user profile
 export async function PUT(request: NextRequest) {
   const startTime = Date.now()
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
 
   try {
@@ -384,7 +384,7 @@ async function handlePasswordUpdate(
 // POST - Upload avatar
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
 
   try {
@@ -495,4 +495,5 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
 

@@ -12,7 +12,8 @@ const registerSchema = z.object({
   name: z.string()
     .min(2, 'Nome deve ter pelo menos 2 caracteres')
     .max(100, 'Nome muito longo')
-    .regex(/^[a-zA-ZÃ€-Ã¿\s]+$/, 'Nome deve conter apenas letras e espaÃ§os'),
+    .regex(/^[A-Za-zÀ-ÿ\s]+$/, 'Nome deve conter apenas letras e espaços'),
+
   email: z.string()
     .email('Email invÃ¡lido')
     .max(255, 'Email muito longo'),
@@ -38,7 +39,7 @@ const registerRateLimit = rateLimit({
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now()
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown'
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
   const userAgent = request.headers.get('user-agent') || 'unknown'
 
   try {
@@ -110,7 +111,6 @@ export async function POST(request: NextRequest) {
       if (existingPhoneUser) {
         await auditLog({
           event: 'REGISTER_PHONE_EXISTS',
-          phone,
           ip,
           userAgent,
           success: false
@@ -297,4 +297,7 @@ async function storeVerificationToken(userId: string, token: string) {
   // Store email verification token
   // Implementation depends on your database choice
 }
+
+
+
 

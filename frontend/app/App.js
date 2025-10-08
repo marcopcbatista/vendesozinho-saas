@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Toaster } from 'react-hot-toast';
@@ -43,7 +43,7 @@ function App() {
         <Router>
           <div className="App">
             <Routes>
-              {/* Rotas Públicas */}
+              {/* Rotas PÃºblicas */}
               <Route path="/" element={<PublicLayout />}>
                 <Route index element={<LandingPage />} />
                 <Route path="login" element={<Login />} />

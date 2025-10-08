@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { body, validationResult } from 'express-validator';
 import authService from '../services/authService.js';
@@ -10,7 +10,7 @@ const router = express.Router();
 // Rate limiting para rotas de auth
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 5, // máximo 5 tentativas de login por IP
+  max: 5, // mÃ¡ximo 5 tentativas de login por IP
   message: {
     success: false,
     error: 'Muitas tentativas de login',
@@ -19,27 +19,27 @@ const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => {
-    // Pular rate limit para verificação de token
+    // Pular rate limit para verificaÃ§Ã£o de token
     return req.path === '/verify' || req.path === '/refresh';
   }
 });
 
-// Middleware de validação para login Google
+// Middleware de validaÃ§Ã£o para login Google
 const validateGoogleLogin = [
   body('token')
     .notEmpty()
-    .withMessage('Token do Google é obrigatório')
+    .withMessage('Token do Google Ã© obrigatÃ³rio')
     .isLength({ min: 10 })
-    .withMessage('Token inválido')
+    .withMessage('Token invÃ¡lido')
 ];
 
-// Middleware para verificar erros de validação
+// Middleware para verificar erros de validaÃ§Ã£o
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
       success: false,
-      error: 'Dados inválidos',
+      error: 'Dados invÃ¡lidos',
       details: errors.array().map(err => ({
         field: err.path,
         message: err.msg
@@ -70,13 +70,13 @@ router.post('/google',
       // Verificar token do Google
       const googleData = await authService.verifyGoogleToken(googleToken);
       
-      // Encontrar ou criar usuário
+      // Encontrar ou criar usuÃ¡rio
       const user = await authService.findOrCreateUser(googleData);
       
       // Gerar JWT token
       const jwtToken = authService.generateJWT(user);
 
-      // Atualizar último login
+      // Atualizar Ãºltimo login
       await authService.updateLastLogin(user.id);
 
       logger.info('Google OAuth login successful', {
@@ -114,7 +114,7 @@ router.post('/google',
       res.status(statusCode).json({
         success: false,
         error: 'Falha no login',
-        message: error.message || 'Não foi possível fazer login com Google'
+        message: error.message || 'NÃ£o foi possÃ­vel fazer login com Google'
       });
     }
   }
@@ -122,7 +122,7 @@ router.post('/google',
 
 /**
  * @route POST /api/auth/verify
- * @desc Verificar se token JWT é válido
+ * @desc Verificar se token JWT Ã© vÃ¡lido
  * @access Public
  */
 router.post('/verify', async (req, res) => {
@@ -132,7 +132,7 @@ router.post('/verify', async (req, res) => {
     if (!token) {
       return res.status(400).json({
         success: false,
-        error: 'Token não fornecido'
+        error: 'Token nÃ£o fornecido'
       });
     }
 
@@ -160,7 +160,7 @@ router.post('/verify', async (req, res) => {
     res.status(401).json({
       success: false,
       valid: false,
-      error: 'Token inválido',
+      error: 'Token invÃ¡lido',
       message: error.message
     });
   }
@@ -197,15 +197,15 @@ router.post('/refresh', authenticateToken, async (req, res) => {
 
     res.status(401).json({
       success: false,
-      error: 'Falha na renovação',
-      message: 'Não foi possível renovar token'
+      error: 'Falha na renovaÃ§Ã£o',
+      message: 'NÃ£o foi possÃ­vel renovar token'
     });
   }
 });
 
 /**
  * @route GET /api/auth/profile
- * @desc Obter perfil do usuário autenticado
+ * @desc Obter perfil do usuÃ¡rio autenticado
  * @access Private
  */
 router.get('/profile', authenticateToken, async (req, res) => {
@@ -240,14 +240,14 @@ router.get('/profile', authenticateToken, async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Falha ao buscar perfil',
-      message: 'Não foi possível obter dados do perfil'
+      message: 'NÃ£o foi possÃ­vel obter dados do perfil'
     });
   }
 });
 
 /**
  * @route PUT /api/auth/profile
- * @desc Atualizar perfil do usuário
+ * @desc Atualizar perfil do usuÃ¡rio
  * @access Private
  */
 router.put('/profile', 
@@ -261,7 +261,7 @@ router.put('/profile',
     body('email')
       .optional()
       .isEmail()
-      .withMessage('Email deve ser válido')
+      .withMessage('Email deve ser vÃ¡lido')
       .normalizeEmail()
   ],
   handleValidationErrors,
@@ -273,13 +273,13 @@ router.put('/profile',
       const updates = {};
       if (name) updates.name = name;
       if (email && email !== req.user.email) {
-        // Verificar se email já existe
+        // Verificar se email jÃ¡ existe
         const existingUser = await authService.getUserByEmail(email);
         if (existingUser && existingUser.id !== userId) {
           return res.status(409).json({
             success: false,
-            error: 'Email já em uso',
-            message: 'Este email já está sendo usado por outra conta'
+            error: 'Email jÃ¡ em uso',
+            message: 'Este email jÃ¡ estÃ¡ sendo usado por outra conta'
           });
         }
         updates.email = email;
@@ -288,7 +288,7 @@ router.put('/profile',
       if (Object.keys(updates).length === 0) {
         return res.status(400).json({
           success: false,
-          error: 'Nenhuma alteração fornecida'
+          error: 'Nenhuma alteraÃ§Ã£o fornecida'
         });
       }
 
@@ -323,8 +323,8 @@ router.put('/profile',
 
       res.status(500).json({
         success: false,
-        error: 'Falha na atualização',
-        message: 'Não foi possível atualizar perfil'
+        error: 'Falha na atualizaÃ§Ã£o',
+        message: 'NÃ£o foi possÃ­vel atualizar perfil'
       });
     }
   }
@@ -354,7 +354,7 @@ router.post('/logout', authenticateToken, async (req, res) => {
       error: error.message
     });
 
-    // Não falhar logout por erro no banco
+    // NÃ£o falhar logout por erro no banco
     res.json({
       success: true,
       message: 'Logout realizado'
@@ -364,7 +364,7 @@ router.post('/logout', authenticateToken, async (req, res) => {
 
 /**
  * @route DELETE /api/auth/account
- * @desc Desativar conta do usuário
+ * @desc Desativar conta do usuÃ¡rio
  * @access Private
  */
 router.delete('/account', 
@@ -374,7 +374,7 @@ router.delete('/account',
       .optional()
       .trim()
       .isLength({ max: 500 })
-      .withMessage('Motivo deve ter no máximo 500 caracteres')
+      .withMessage('Motivo deve ter no mÃ¡ximo 500 caracteres')
   ],
   handleValidationErrors,
   async (req, res) => {
@@ -402,8 +402,8 @@ router.delete('/account',
 
       res.status(500).json({
         success: false,
-        error: 'Falha na desativação',
-        message: 'Não foi possível desativar conta'
+        error: 'Falha na desativaÃ§Ã£o',
+        message: 'NÃ£o foi possÃ­vel desativar conta'
       });
     }
   }
@@ -411,7 +411,7 @@ router.delete('/account',
 
 /**
  * @route GET /api/auth/me
- * @desc Endpoint simples para verificar autenticação
+ * @desc Endpoint simples para verificar autenticaÃ§Ã£o
  * @access Private
  */
 router.get('/me', authenticateToken, (req, res) => {
@@ -429,3 +429,4 @@ router.get('/me', authenticateToken, (req, res) => {
 });
 
 export default router;
+
