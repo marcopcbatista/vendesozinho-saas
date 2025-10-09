@@ -1,4 +1,5 @@
 ﻿import { Pool } from 'pg';
+import type { PasswordResetToken, EmailVerificationToken } from '@/types/auth';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -23,8 +24,6 @@ export interface RefreshToken {
   expires_at: Date;
   created_at: Date;
 }
-
-import type { PasswordResetToken, EmailVerificationToken } from '@/types/auth';
 
 export type {
   User,
