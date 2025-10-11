@@ -1,4 +1,4 @@
-﻿import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import bcrypt from 'bcryptjs';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -15,6 +15,7 @@ export interface User {
   password_hash: string;
   email_verified: boolean;
   phone_verified: boolean;
+  is_active: boolean;
   created_at: Date;
   updated_at: Date;
 }
@@ -352,3 +353,6 @@ export async function deleteEmailVerificationToken(token: string): Promise<boole
 
   return !error;
 }
+
+
+

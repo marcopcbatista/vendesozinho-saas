@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import { z } from 'zod'
 import bcrypt from 'bcryptjs'
@@ -17,18 +17,18 @@ const updateProfileSchema = z.object({
     .max(100, 'Nome muito longo')
     .optional(),
   phone: z.string()
-    .regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, 'Telefone invÃ¡lido')
+    .regex(/^\(\d{2}\) \d{4,5}-\d{4}$/, 'Telefone inválido')
     .optional()
     .nullable(),
-  avatar: z.string().url('URL do avatar invÃ¡lida').optional().nullable()
+  avatar: z.string().url('URL do avatar inválida').optional().nullable()
 })
 
 const updatePasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Senha atual Ã© obrigatÃ³ria'),
+  currentPassword: z.string().min(1, 'Senha atual é obrigatória'),
   newPassword: z.string()
     .min(8, 'Nova senha deve ter pelo menos 8 caracteres')
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, 
-           'Nova senha deve conter: maiÃºscula, minÃºscula, nÃºmero e sÃ­mbolo')
+           'Nova senha deve conter: maiúscula, minúscula, número e símbolo')
 })
 
 // GET - Get current user info
@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if user is still active
-    if (!user.isActive) {
+    if (!user.is_active) {
       await auditLog({
         event: 'GET_ME_USER_INACTIVE',
         userId: user.id,
@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
       role: user.role,
       permissions: user.permissions,
       avatar: user.avatar,
-      isActive: user.isActive,
+      isActive: user.is_active,
       emailVerified: user.emailVerified,
       lastLoginAt: user.lastLoginAt,
       createdAt: user.createdAt,
@@ -189,7 +189,7 @@ export async function PUT(request: NextRequest) {
 
     // Get current user
     const user = await getUserById(payload.userId as string)
-    if (!user || !user.isActive) {
+    if (!user || !user.is_active) {
       return NextResponse.json(
         { error: 'User not found or inactive' },
         { status: 401 }
@@ -287,7 +287,7 @@ async function handleProfileUpdate(
       role: updatedUser.role,
       permissions: updatedUser.permissions,
       avatar: updatedUser.avatar,
-      isActive: updatedUser.isActive,
+      isActive: updatedUser.is_active,
       emailVerified: updatedUser.emailVerified,
       lastLoginAt: updatedUser.lastLoginAt,
       createdAt: updatedUser.createdAt,
@@ -412,7 +412,7 @@ export async function POST(request: NextRequest) {
 
     // Get current user
     const user = await getUserById(payload.userId as string)
-    if (!user || !user.isActive) {
+    if (!user || !user.is_active) {
       return NextResponse.json(
         { error: 'User not found or inactive' },
         { status: 401 }
@@ -495,5 +495,9 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+
+
+
 
 
